@@ -129,7 +129,7 @@ class _ProductDescriptionState extends State<ProductDescription> {
                                             .quantity} ${widget.products.unit}]'
                                             : '[${widget.products.unit}]',
                                         style: kTextStyle.copyWith(
-                                            fontSize: 17, color: Colors.red),
+                                            fontSize: 17, color: Colors.green),
                                       ),
                                     ],
                                   ),
