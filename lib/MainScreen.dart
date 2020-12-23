@@ -1,19 +1,17 @@
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:grocery_shop/ProductScreen.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-
 
 class Store {
   final String title;
   final String address;
-  final double rating;
 
   Store({
     @required this.title,
     @required this.address,
-    @required this.rating,
   });
 }
 
@@ -29,25 +27,20 @@ class _MainScreenState extends State<MainScreen> {
   Store selected;
   List<Store> StoreDescription = [
     Store(
-        title: 'Jaisurya\'s Departmental Store',
-        address: 'Fairlands',
-        rating: 3.5),
+      title: 'ABC Super Market',
+      address: 'Bangalore',
+    ),
     Store(
-        title: 'Bharathi Super Market', address: 'Hasthampati', rating: 3.0),
-    Store(title: 'Reliance Digital Market', address: '5 Roads', rating: 4.0),
+      title: 'PQR Super Market',
+      address: 'Chennai',
+    ),
     Store(
-        title: 'Sellers Shop - Hyper Market',
-        address: 'Kurangu saavadi',
-        rating: 4.5),
-    Store(
-        title: 'Sellers Shop - Hyper Market',
-        address: 'Hasthampatti',
-        rating: 4.7),
-    Store(
-        title: 'Jaisurya\'s Departmental Store',
-        address: '4 Roads',
-        rating: 3.6),
+      title: 'XYZ Super Market',
+      address: 'Mumbai',
+    ),
   ];
+  TextStyle kTextStyle = TextStyle();
+  TextButton kTextButton = TextButton(child: Text('Profile'),onPressed: (){});
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +48,38 @@ class _MainScreenState extends State<MainScreen> {
       backgroundColor: Color(0xff010b19),
       drawer: Drawer(
         elevation: 70,
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(top: 50, left: 20, bottom: 20),
+              child: Row(
+                children: [
+                  Container(
+                    height: 50,
+                    width: 50,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('images/trolley.png'),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 30),
+                  Text(
+                    'Trolley',
+                    style: GoogleFonts.pacifico(
+                        fontSize: 28,
+                        color: Colors.grey[800],
+                        letterSpacing: 1.5),
+                  )
+                ],
+              ),
+            ),
+            TextButton(
+              child: Text('Profile'),
+              onPressed: () {},
+            )
+          ],
+        ),
       ),
       body: SafeArea(
         top: false,
@@ -103,7 +128,7 @@ class _MainScreenState extends State<MainScreen> {
                               builder: (context) =>
                                   AutoCompleteTextField<Store>(
                                 decoration: InputDecoration(
-                                  hintText: 'Search your nearby store',
+                                  hintText: 'Search your store',
                                   hintStyle: TextStyle(),
                                   alignLabelWithHint: true,
                                   border: OutlineInputBorder(
@@ -128,7 +153,8 @@ class _MainScreenState extends State<MainScreen> {
                                             builder: (context) => ProductScreen(
                                               productitem: selected,
                                             ),
-                                          ),);
+                                          ),
+                                        );
                                 },
                                 itemBuilder: (context, item) => ListTile(
                                   title: Column(
@@ -145,22 +171,14 @@ class _MainScreenState extends State<MainScreen> {
                                               fontSize: 14,
                                               color: Colors.grey[700]),
                                         ),
-                                        Divider(
-                                          thickness: 1,
-                                        )
                                       ]),
-                                  trailing: Text('${item.rating}'),
                                 ),
                                 itemFilter: (suggestion, input) => suggestion
                                     .title
                                     .toLowerCase()
                                     .startsWith(input.toLowerCase()),
                                 itemSorter: (a, b) {
-                                  return a.rating == b.rating
-                                      ? 0
-                                      : a.rating > b.rating
-                                          ? -1
-                                          : 1;
+                                  return 1;
                                 },
                               ),
                             ),
@@ -179,13 +197,13 @@ class _MainScreenState extends State<MainScreen> {
                                 width: 160,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5),
-                                  color: Colors.red,
+                                  color: Colors.green,
                                 ),
                                 child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        'Scan using QR',
+                                        'Scan QR',
                                         style: TextStyle(
                                             color: Colors.white, fontSize: 17),
                                       ),

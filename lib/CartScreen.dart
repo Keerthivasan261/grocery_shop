@@ -22,6 +22,7 @@ class _CartScreenState extends State<CartScreen> {
     super.initState();
     priceSum();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,17 +48,17 @@ class _CartScreenState extends State<CartScreen> {
                 Padding(
                   padding: EdgeInsets.only(left: 15, top: 10),
                   child: Container(
-                    height: 150,
+                    height: 140,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Container(
-                          height: 130,
+                          height: 120,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color: cartitems[index].color,
                           ),
-                          width: 130,
+                          width: 120,
                           child: Padding(
                             padding: EdgeInsets.only(
                                 top: 5, bottom: 5, left: 5, right: 5),
@@ -104,13 +105,17 @@ class _CartScreenState extends State<CartScreen> {
                                         padding: EdgeInsets.only(right: 20),
                                         child: RichText(
                                           text: TextSpan(
-                                            text: '₹ ${cartitems[index].price}\n',
-                                            style: kTextStyle.copyWith(fontSize: 22),
+                                            text:
+                                                '₹ ${cartitems[index].price}\n',
+                                            style: kTextStyle.copyWith(
+                                                fontSize: 22),
                                             children: [
                                               TextSpan(
-                                                text: '₹ ${cartitems[index].mrp}',
+                                                text:
+                                                    '₹ ${cartitems[index].mrp}',
                                                 style: TextStyle(
-                                                    decoration: TextDecoration.lineThrough,
+                                                    decoration: TextDecoration
+                                                        .lineThrough,
                                                     fontSize: 15,
                                                     color: Colors.green),
                                               ),
@@ -122,86 +127,104 @@ class _CartScreenState extends State<CartScreen> {
                                   ),
                                 ),
                               ),
-                              Container(
-                                alignment: Alignment.centerRight,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                              Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Text(
-                                      'Quantity',
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Flexible(
-                                          child: IconButton(
-                                              icon: Icon(
-                                                MdiIcons.minusBox,
-                                                size: 35,
-                                              ),
-                                              onPressed: () {
-                                                setState(() {
-                                                  cartitems[index]
-                                                              .requiredQuantity >
-                                                          1
-                                                      ? cartitems[index]
-                                                          .requiredQuantity -= 1
-                                                      : null;
-                                                });
-                                              }),
-                                        ),
-                                        SizedBox(width: 5),
-                                        Flexible(
-                                          child: Container(
-                                            width: 50,
-                                            decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  spreadRadius: 1,
-                                                  blurRadius: 10,
-                                                  color: Colors.black
-                                                      .withOpacity(0.6),
-                                                )
-                                              ],
-                                            ),
-                                            child: Center(
-                                              child: Text(
-                                                '${cartitems[index].requiredQuantity}',
-                                                style: TextStyle(
-                                                    fontSize: 23,
-                                                    fontWeight:
-                                                        FontWeight.w600),
-                                              ),
-                                            ),
+                                    Expanded(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Quantity',
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w500),
                                           ),
-                                        ),
-                                        Flexible(
-                                          child: IconButton(
-                                              icon: Icon(
-                                                MdiIcons.plusBox,
-                                                size: 35,
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Flexible(
+                                                child: IconButton(
+                                                    icon: Icon(
+                                                      MdiIcons.minusBox,
+                                                      size: 35,
+                                                    ),
+                                                    onPressed: () {
+                                                      setState(() {
+                                                        cartitems[index]
+                                                                    .requiredQuantity >
+                                                                1
+                                                            ? cartitems[index]
+                                                                .requiredQuantity -= 1
+                                                            : null;
+                                                      });
+                                                    }),
                                               ),
-                                              onPressed: () {
-                                                setState(() {
-                                                  cartitems[index]
-                                                              .requiredQuantity <
-                                                          99
-                                                      ? cartitems[index]
-                                                          .requiredQuantity += 1
-                                                      : null;
-                                                });
-                                              }),
-                                        )
-                                      ],
+                                              SizedBox(width: 5),
+                                              Flexible(
+                                                child: Container(
+                                                  width: 50,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                        spreadRadius: 1,
+                                                        blurRadius: 10,
+                                                        color: Colors.black
+                                                            .withOpacity(0.6),
+                                                      )
+                                                    ],
+                                                  ),
+                                                  child: Center(
+                                                    child: Text(
+                                                      '${cartitems[index].requiredQuantity}',
+                                                      style: TextStyle(
+                                                          fontSize: 23,
+                                                          fontWeight:
+                                                              FontWeight.w600),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Flexible(
+                                                child: IconButton(
+                                                    icon: Icon(
+                                                      MdiIcons.plusBox,
+                                                      size: 35,
+                                                    ),
+                                                    onPressed: () {
+                                                      setState(() {
+                                                        cartitems[index]
+                                                                    .requiredQuantity <
+                                                                99
+                                                            ? cartitems[index]
+                                                                .requiredQuantity += 1
+                                                            : null;
+                                                      });
+                                                    }),
+                                              )
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(right: 15,left: 20),
+                                      child: Column(children: [
+                                        Text(
+                                          'Pack of ${cartitems[index].requiredQuantity}',
+                                          style: TextStyle(color: Colors.green),
+                                        ),
+                                        Text(
+                                          '₹${cartitems[index].price * cartitems[index].requiredQuantity}',
+                                          style:
+                                              kTextStyle.copyWith(fontSize: 18),
+                                        ),
+                                      ]),
                                     )
-                                  ],
-                                ),
-                              )
+                                  ]),
                             ],
                           ),
                         )
@@ -216,16 +239,11 @@ class _CartScreenState extends State<CartScreen> {
                       cartitems.remove(cartitems[index]);
                     });
                   },
-                  child: Container(
-                    color: Colors.red,
-                    height: 40,
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    child: Center(
-                        child: Text(
-                      'Remove',
-                      style: TextStyle(fontSize: 20, color: Colors.white),
-                    )),
-                  ),
+                  child: Center(
+                      child: Text(
+                    'Remove',
+                    style: TextStyle(fontSize: 18, color: Colors.red),
+                  )),
                 ),
                 Divider(
                   thickness: 1,
@@ -240,9 +258,9 @@ class _CartScreenState extends State<CartScreen> {
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black,
+                    color: Colors.grey[600],
                     blurRadius: 15,
-                    spreadRadius: 1,
+                    spreadRadius: 0.5,
                   ),
                 ],
                 color: Colors.white,
@@ -264,7 +282,7 @@ class _CartScreenState extends State<CartScreen> {
                                 color: Colors.grey[700], fontSize: 23),
                           ),
                           TextSpan(
-                            text: '₹ ${mrpSum()}',
+                            text: (mrpSum() != 0) ? '₹ ${mrpSum()}' : '',
                             style: TextStyle(
                                 decoration: TextDecoration.lineThrough,
                                 fontSize: 15,
@@ -279,15 +297,17 @@ class _CartScreenState extends State<CartScreen> {
                       child: RaisedButton(
                         color: Colors.red,
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => OrderScreen(
-                                mrpprice: mrpPrice,
-                                payableprice: price,
+                          if (cartitems.isNotEmpty) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => OrderScreen(
+                                  mrpprice: mrpPrice,
+                                  payableprice: price,
+                                ),
                               ),
-                            ),
-                          );
+                            );
+                          }
                         },
                         child: Text(
                           'Place Order',

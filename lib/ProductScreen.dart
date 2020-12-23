@@ -47,17 +47,6 @@ class _ProductScreenState extends State<ProductScreen> {
         elevation: 8,
         actions: [
           IconButton(
-              icon: Icon(
-                MdiIcons.city,
-                size: 30,
-              ),
-              onPressed: () {
-                Navigator.popAndPushNamed(context, 'main');
-              }),
-          SizedBox(
-            width: 8,
-          ),
-          IconButton(
             icon: Icon(
               MdiIcons.cart,
               size: 30,
@@ -165,7 +154,7 @@ class _ProductScreenState extends State<ProductScreen> {
             ),
             Expanded(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                padding: EdgeInsets.symmetric(horizontal: 0),
                 child: GridView.builder(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
@@ -174,6 +163,7 @@ class _ProductScreenState extends State<ProductScreen> {
                       mainAxisSpacing: 15),
                   itemCount: prodDescription.length,
                   itemBuilder: (context, index) => Card(
+                    indexvalue:index,
                     products: prodDescription[index],
                   ),
                 ),
@@ -188,9 +178,10 @@ class _ProductScreenState extends State<ProductScreen> {
 
 class Card extends StatelessWidget {
   final product products;
+  int indexvalue;
   String empty = '';
 
-  Card({this.products});
+  Card({this.products,this.indexvalue});
 
   @override
   Widget build(BuildContext context) {
@@ -210,14 +201,14 @@ class Card extends StatelessWidget {
         children: [
           Expanded(
             child: Stack(children: [
-              Container(
+              (indexvalue == 0 || indexvalue == 1) ? Container(
                 height: 20,
                 width: 30,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
                         topRight: Radius.elliptical(15, 15),
                         bottomRight: Radius.elliptical(15, 15)),
-                    color: Colors.green),
+                    color: Colors.green.withOpacity(0.7)),
                 child: Center(
                   child: Text(
                     'Ad',
@@ -227,6 +218,7 @@ class Card extends StatelessWidget {
                         fontWeight: FontWeight.w500),
                   ),
                 ),
+              ) : Container(
               ),
               Container(
                 padding: EdgeInsets.all(10),

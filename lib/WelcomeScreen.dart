@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:grocery_shop/Constants.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class WelcomeScreen extends StatefulWidget {
   @override
@@ -11,12 +11,11 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
-  String email;
-  String password;
-  String Error = null;
+  bool check = true,check1=false;
+  String email, password, Error = null;
   bool ShowSpinner = false;
   var user = null;
-  bool checker = false,req=false;
+  bool checker = false, req = false;
   final auth = FirebaseAuth.instance;
   FocusNode myfocusnode1, myfocusnode2;
 
@@ -36,17 +35,30 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             clipper: Myclipper(),
             child: Container(
               height: 350,
-              color: Colors.cyan,
-              child: Center(
-                  child: TyperAnimatedTextKit(
-                speed: Duration(milliseconds: 100),
-                pause: Duration(seconds: 3),
-                text: ['Grocery Shop'],
-                textStyle: GoogleFonts.pacifico(
-                    fontSize: 50,
-                    fontWeight: FontWeight.w100,
-                    color: Colors.white),
-              )),
+              width: MediaQuery.of(context).size.width,
+              color: Colors.green,
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: 100,
+                      width: 100,
+                      child: Image(
+                        fit: BoxFit.cover,
+                        image: AssetImage('images/trolley.png'),
+                      ),
+                    ),
+                    TyperAnimatedTextKit(
+                      speed: Duration(milliseconds: 100),
+                      pause: Duration(seconds: 3),
+                      text: ['Trolley'],
+                      textStyle: GoogleFonts.pacifico(
+                          fontSize: 50,
+                          fontWeight: FontWeight.w100,
+                          color: Colors.white),
+                    ),
+                  ]),
             ),
           ),
           SizedBox(
@@ -66,8 +78,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           //SizedBox(height: 10),
           Builder(
             builder: (context) => Container(
-              padding: EdgeInsets.fromLTRB(60, 10, 60, 10),
-              height: 70,
+              padding: EdgeInsets.fromLTRB(60, 10, 60, check1==true?5:10),
+              height: check1==true?60:70,
               child: TextField(
                 onSubmitted: (input) {
                   print(input);
@@ -87,29 +99,52 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   fontSize: 17,
                 ),
                 keyboardType: TextInputType.emailAddress,
-                decoration: kDecor.copyWith(
+                decoration: InputDecoration(
                   hintText: 'Email-ID',
                   hintStyle: TextStyle(fontSize: 15),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                    borderSide:
+                        BorderSide(color: Colors.greenAccent[700], width: 1.5),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                    borderSide:
+                        BorderSide(color: Colors.greenAccent[700], width: 1.5),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                    borderSide:
+                        BorderSide(color: Colors.greenAccent[700], width: 2.5),
+                  ),
                 ),
+                /*kDecor.copyWith(
+                  hintText: 'Email-ID',
+                  hintStyle: TextStyle(fontSize: 15),
+                ),*/
                 onChanged: (value) {
                   email = value;
-                  if (email == null || !email.contains('@')) {
+                  if (email == null ||
+                      !email.contains('@') ||
+                      !email.contains('.')) {
                     checker = false;
                   } else {
+                    check1=false;
                     checker = true;
                   }
                 },
               ),
             ),
           ),
+          check1==true?Text('\'Enter your Email-ID\'',style: TextStyle(color: Colors.red),):SizedBox(height: 1,),
           Builder(
             builder: (context) => Container(
-              padding: EdgeInsets.fromLTRB(60, 5, 60, 15),
-              height: 70,
+              padding: EdgeInsets.fromLTRB(60, 5, 60, 5),
+              height: 60,
               child: TextField(
                 focusNode: myfocusnode1,
                 onSubmitted: (input) {
-                  if (password == null || password.length < 6) {
+                  if (password == null || password.length < 5) {
                     Scaffold.of(context).showSnackBar(
                       SnackBar(
                         content: Text('Invalid password'),
@@ -121,13 +156,40 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   }
                 },
                 style: TextStyle(fontSize: 17, letterSpacing: 1),
-                obscureText: true,
+                obscureText: check == true ? true : false,
                 obscuringCharacter: '*',
-                decoration: kDecor.copyWith(
-                    hintText: 'Password', hintStyle: TextStyle(fontSize: 15)),
+                decoration: InputDecoration(
+                  suffixIcon: IconButton(
+                    icon: check == true
+                        ? Icon(MdiIcons.eyeOff)
+                        : Icon(MdiIcons.eye),
+                    onPressed: () {
+                      setState(() {
+                        check == true ? check = false : check = true;
+                      });
+                    },
+                  ),
+                  hintText: 'Password',
+                  hintStyle: TextStyle(fontSize: 15),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                    borderSide:
+                        BorderSide(color: Colors.greenAccent[700], width: 1.5),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                    borderSide:
+                        BorderSide(color: Colors.greenAccent[700], width: 1.5),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                    borderSide:
+                        BorderSide(color: Colors.greenAccent[700], width: 2.5),
+                  ),
+                ),
                 onChanged: (value) {
                   password = value;
-                  if (password == null || password.length <= 6) {
+                  if (password == null || password.length <= 3) {
                     checker = false;
                   } else {
                     checker = true;
@@ -136,7 +198,17 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               ),
             ),
           ),
-          //error(),
+          TextButton(
+            child: Text(
+              'Forget password',
+              style: TextStyle(decoration: TextDecoration.underline,fontSize: 16,color: Colors.blue),
+            ),
+            onPressed: (){
+              setState(() {
+                email!=null? auth.sendPasswordResetEmail(email: email): check1=true;
+              });
+            },
+          ),
           Builder(
             builder: (context) => TextButton(
               onPressed: () async {
@@ -146,10 +218,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   try {
                     if (user != null && checker == true) {
                       print(user);
-                      req=true;
-                      Navigator.pushNamedAndRemoveUntil(context, 'main',(route) => false);
+                      req = true;
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, 'main', (route) => false);
                     }
-                    if(req==false){
+                    if (req == false) {
                       Scaffold.of(context).showSnackBar(
                         SnackBar(
                           content: Text('Invalid email-ID or password'),
@@ -174,38 +247,41 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 width: 180,
                 height: 50,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  gradient: LinearGradient(
-                    colors: [
-                      Colors.greenAccent[400],
-                      Colors.tealAccent[400],
-                      Colors.cyan[400],
-                      Colors.blue
-                    ],
-                  ),
-                ),
+                    borderRadius: BorderRadius.circular(30),
+                    color: Colors.green),
               ),
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: 13),
+            padding: EdgeInsets.only(top: 10, bottom: 15),
             child: Text(
               'or',
               style: TextStyle(fontSize: 20, color: Colors.grey[600]),
               textAlign: TextAlign.center,
             ),
           ),
-          FlatButton(
-            onPressed: () {
+          GestureDetector(
+            onTap: () {
               Navigator.pushNamed(context, 'register');
             },
-            child: Text(
-              'Create Account?',
-              style: TextStyle(
-                fontSize: 20,
-              ),
+            child: RichText(
+              text: TextSpan(
+                  text: 'New User? ',
+                  style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w400),
+                  children: [
+                    TextSpan(
+                      text: 'Click here to sign up',
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.blue),
+                    )
+                  ]),
             ),
-          )
+          ),
         ]),
       ),
     );

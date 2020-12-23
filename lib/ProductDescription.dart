@@ -32,14 +32,8 @@ class _ProductDescriptionState extends State<ProductDescription> {
               child: Center(
                 child: Container(
                   padding: EdgeInsets.only(bottom: 20),
-                  height: MediaQuery
-                      .of(context)
-                      .size
-                      .height * 0.4,
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width * 0.6,
+                  height: MediaQuery.of(context).size.height * 0.4,
+                  width: MediaQuery.of(context).size.width * 0.6,
                   child: Image(
                     image: AssetImage(widget.products.image),
                     fit: BoxFit.contain,
@@ -47,10 +41,7 @@ class _ProductDescriptionState extends State<ProductDescription> {
                 ),
               ),
               color: widget.products.color,
-              height: MediaQuery
-                  .of(context)
-                  .size
-                  .height * 0.45,
+              height: MediaQuery.of(context).size.height * 0.45,
             ),
             AppBar(
               backgroundColor: Colors.transparent,
@@ -66,10 +57,9 @@ class _ProductDescriptionState extends State<ProductDescription> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                            CartScreen(
-                              items: widget.products,
-                            ),
+                        builder: (context) => CartScreen(
+                          items: widget.products,
+                        ),
                       ),
                     );
                   },
@@ -94,42 +84,37 @@ class _ProductDescriptionState extends State<ProductDescription> {
                     bottomRight: Radius.zero,
                   ),
                 ),
-                height: MediaQuery
-                    .of(context)
-                    .size
-                    .height * 0.6,
-                width: MediaQuery
-                    .of(context)
-                    .size
-                    .width,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: Column(
+                height: MediaQuery.of(context).size.height * 0.6,
+                width: MediaQuery.of(context).size.width,
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Column(
                         children: [
                           Padding(
                             padding: EdgeInsets.only(top: 20, left: 20),
                             child: Container(
                               child: Row(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceEvenly,
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Column(
                                     children: [
                                       Text(
                                         widget.products.title,
                                         style:
-                                        kTextStyle.copyWith(fontSize: 23),
+                                            kTextStyle.copyWith(fontSize: 23),
                                       ),
                                       Text(
                                         (widget.products.quantity != null)
-                                            ? '[${widget.products
-                                            .quantity} ${widget.products.unit}]'
+                                            ? '[${widget.products.quantity} ${widget.products.unit}]'
                                             : '[${widget.products.unit}]',
                                         style: kTextStyle.copyWith(
-                                            fontSize: 17, color: Colors.green),
+                                          fontSize: 17,
+                                          color: Colors.red,
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -141,12 +126,14 @@ class _ProductDescriptionState extends State<ProductDescription> {
                                     child: RichText(
                                       text: TextSpan(
                                         text: '₹ ${widget.products.price}\n',
-                                        style: kTextStyle.copyWith(fontSize: 25),
+                                        style:
+                                            kTextStyle.copyWith(fontSize: 25),
                                         children: [
                                           TextSpan(
                                             text: '₹ ${widget.products.mrp}',
                                             style: TextStyle(
-                                                decoration: TextDecoration.lineThrough,
+                                                decoration:
+                                                    TextDecoration.lineThrough,
                                                 fontSize: 16,
                                                 color: Colors.green),
                                           ),
@@ -179,9 +166,9 @@ class _ProductDescriptionState extends State<ProductDescription> {
                                           onPressed: () {
                                             setState(() {
                                               widget.products.requiredQuantity >
-                                                  1
+                                                      1
                                                   ? widget.products
-                                                  .requiredQuantity -= 1
+                                                      .requiredQuantity -= 1
                                                   : null;
                                             });
                                           }),
@@ -197,14 +184,13 @@ class _ProductDescriptionState extends State<ProductDescription> {
                                               spreadRadius: 1,
                                               blurRadius: 10,
                                               color:
-                                              Colors.black.withOpacity(0.6),
+                                                  Colors.black.withOpacity(0.6),
                                             )
                                           ],
                                         ),
                                         child: Center(
                                           child: Text(
-                                            '${widget.products
-                                                .requiredQuantity}',
+                                            '${widget.products.requiredQuantity}',
                                             style: kTextStyle.copyWith(
                                                 fontSize: 20,
                                                 fontWeight: FontWeight.w600),
@@ -221,9 +207,9 @@ class _ProductDescriptionState extends State<ProductDescription> {
                                           onPressed: () {
                                             setState(() {
                                               widget.products.requiredQuantity <
-                                                  99
+                                                      99
                                                   ? widget.products
-                                                  .requiredQuantity += 1
+                                                      .requiredQuantity += 1
                                                   : null;
                                             });
                                           }),
@@ -235,92 +221,113 @@ class _ProductDescriptionState extends State<ProductDescription> {
                           )
                         ],
                       ),
-                    ),
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 10),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Product Details:',
-                                style: kTextStyle.copyWith(
-                                    fontSize: 16, color: Colors.grey[600]),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(left: 15, top: 10),
-                                child: Text(
-                                  'Manufacture Date: ${widget.products.mfd}',
-                                  style: kTextStyle,
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(left: 15),
-                                child: Text(
-                                  'Expire Date: ${widget.products.exp}',
-                                  style: kTextStyle,
-                                ),
-                              ),
-                              Padding(
-                                  padding: EdgeInsets.only(left: 15),
-                                  child: Text(
-                                    (widget.products.quantity != null)
-                                        ? 'Quantity: ${widget.products
-                                        .quantity} ${widget.products.unit}'
-                                        : 'Size: ${widget.products.unit}',
-                                    style: kTextStyle,
-                                  )),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    FlatButton(
-                      onPressed: () {
-                        setState(
-                              () {
-                            if (widget.products.cartCheck == false) {
-                              cartitems.add(widget.products);
-                              widget.products.cartCheck = true;
-                            }
-                          },
-                        );
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.only(bottom: 15, top: 15),
-                        child: Center(
-                          child: Container(
-                            height: 55,
-                            width: 200,
-                            child: Center(
+                      SizedBox(height: 20,),
+                      Padding(
+                        padding: EdgeInsets.only(left: 10),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Product Details:',
+                              style: kTextStyle.copyWith(
+                                  fontSize: 16, color: Colors.grey[600]),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: 15, top: 10),
                               child: Text(
-                                'Add to cart',
-                                style: kTextStyle.copyWith(
-                                    fontSize: 20,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w500),
+                                'Manufacture Date: ${widget.products.mfd}',
+                                style: kTextStyle,
                               ),
                             ),
-                            decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                      offset: Offset(0, 8),
-                                      color: Colors.black.withOpacity(0.3),
-                                      blurRadius: 6,
-                                      spreadRadius: 0.5)
-                                ],
-                                borderRadius: BorderRadius.circular(8),
-                                color: Colors.red[600]),
-                          ),
+                            Padding(
+                              padding: EdgeInsets.only(left: 15),
+                              child: Text(
+                                'Expire Date: ${widget.products.exp}',
+                                style: kTextStyle,
+                              ),
+                            ),
+                            Padding(
+                                padding: EdgeInsets.only(left: 15),
+                                child: Text(
+                                  (widget.products.quantity != null)
+                                      ? 'Quantity: ${widget.products.quantity} ${widget.products.unit}'
+                                      : 'Size: ${widget.products.unit}',
+                                  style: kTextStyle,
+                                )),
+                          ],
                         ),
                       ),
-                    ),
-                  ],
+                      /*Container(
+                        height: 100,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) => Container(
+                            height: 70,
+                            child: Row(
+                              children: [
+                                Text('${prodDescription[index].title}'),
+                                Image(
+                                  image: AssetImage(
+                                      '${prodDescription[index].image}'),
+                                  fit: BoxFit.cover,
+                                )
+                              ],
+                            ),
+                          ),
+                          itemCount: prodDescription.length,
+                        ),
+                      ),*/
+                    ],
+                  ),
                 ),
               ),
-            )
+            ),
+            Positioned(
+              top: MediaQuery.of(context).size.height * 0.89,
+              left: MediaQuery.of(context).size.width / 5,
+              right: MediaQuery.of(context).size.width / 5,
+              child: FlatButton(
+                onPressed: () {
+                  setState(
+                    () {
+                      if (widget.products.cartCheck == false) {
+                        cartitems.add(widget.products);
+                        widget.products.cartCheck = true;
+                      }
+                    },
+                  );
+                },
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: 15, top: 15),
+                  child: Center(
+                    child: Container(
+                      height: 55,
+                      width: 200,
+                      child: Center(
+                        child: Text(
+                          'Add to cart',
+                          style: kTextStyle.copyWith(
+                              fontSize: 20,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                      decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                                offset: Offset(0, 8),
+                                color: Colors.black.withOpacity(0.3),
+                                blurRadius: 6,
+                                spreadRadius: 0.5)
+                          ],
+                          borderRadius: BorderRadius.circular(8),
+                          color: Colors.red[600]),
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),

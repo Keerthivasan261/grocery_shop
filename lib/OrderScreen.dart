@@ -245,7 +245,7 @@ class _OrderScreenState extends State<OrderScreen> {
                     child: Padding(
                         padding: EdgeInsets.only(right: 20),
                         child: Text(
-                          'Continue Shopping ?',
+                          'Continue Shopping',
                           style: TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.w600,

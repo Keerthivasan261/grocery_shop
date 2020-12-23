@@ -5,9 +5,7 @@ import 'package:gradient_input_border/gradient_input_border.dart';
 InputDecoration kDecor = InputDecoration(
   fillColor: Colors.white,
   alignLabelWithHint: true,
-  hintStyle: TextStyle(
-    color: Colors.grey[400],
-  ),
+  hintStyle: TextStyle(color: Colors.grey[400]),
   border: GradientOutlineInputBorder(
     borderRadius: BorderRadius.circular(5),
     borderSide: BorderSide(color: Colors.greenAccent[400], width: 2),
@@ -104,25 +102,26 @@ class product {
   });
 }
 
-TextStyle kTextStyle = GoogleFonts.robotoMono(
-    color: Colors.grey[800], fontSize: 18);
+TextStyle kTextStyle =
+    GoogleFonts.robotoMono(color: Colors.grey[800], fontSize: 18);
 List<product> cartitems = [];
 List<product> prodDescription = [
   product(
-    mrp: 440,
-    mfd:'dd/mm/yyyy',
-    exp: 'dd/mm/yyyy',
-    title: 'Boost',
-    genre: 'Energy Drinks',
-    price: 400,
-    quantity: 1,
-    requiredQuantity: 1,
-    unit: 'kg',
-    image: 'images/boost.png',
-    color: Colors.red[600].withOpacity(0.5), cartCheck: false),
+      mrp: 440,
+      mfd: 'dd/mm/yyyy',
+      exp: 'dd/mm/yyyy',
+      title: 'Boost',
+      genre: 'Energy Drinks',
+      price: 400,
+      quantity: 1,
+      requiredQuantity: 1,
+      unit: 'kg',
+      image: 'images/boost.png',
+      color: Colors.red[600].withOpacity(0.5),
+      cartCheck: false),
   product(
       mrp: 45,
-      mfd:'dd/mm/yyyy',
+      mfd: 'dd/mm/yyyy',
       exp: 'dd/mm/yyyy',
       title: 'Snickers',
       genre: 'Chocolates',
@@ -131,10 +130,11 @@ List<product> prodDescription = [
       requiredQuantity: 1,
       unit: 'medium',
       image: 'images/snickers.png',
-      color: Colors.brown[300], cartCheck: false),
+      color: Colors.brown[300],
+      cartCheck: false),
   product(
       mrp: 87,
-      mfd:'dd/mm/yyyy',
+      mfd: 'dd/mm/yyyy',
       exp: 'dd/mm/yyyy',
       title: 'Coke',
       genre: 'Juices',
@@ -143,10 +143,11 @@ List<product> prodDescription = [
       requiredQuantity: 1,
       unit: 'l',
       image: 'images/coke.png',
-      color: Colors.red[400], cartCheck: false),
+      color: Colors.red[400],
+      cartCheck: false),
   product(
       mrp: 200,
-      mfd:'dd/mm/yyyy',
+      mfd: 'dd/mm/yyyy',
       exp: 'dd/mm/yyyy',
       title: 'Axe',
       genre: 'Beauty',
@@ -155,10 +156,11 @@ List<product> prodDescription = [
       requiredQuantity: 1,
       unit: 'ml',
       image: 'images/axe.png',
-      color: Colors.blue[300], cartCheck: false),
+      color: Colors.blue[300],
+      cartCheck: false),
   product(
       mrp: 230,
-      mfd:'dd/mm/yyyy',
+      mfd: 'dd/mm/yyyy',
       exp: 'dd/mm/yyyy',
       title: 'Boost',
       genre: 'Energy Drinks',
@@ -167,10 +169,11 @@ List<product> prodDescription = [
       requiredQuantity: 1,
       unit: 'g',
       image: 'images/boost.png',
-      color: Colors.red[400], cartCheck: false),
+      color: Colors.red[400],
+      cartCheck: false),
   product(
       mrp: 25,
-      mfd:'dd/mm/yyyy',
+      mfd: 'dd/mm/yyyy',
       exp: 'dd/mm/yyyy',
       title: 'Snickers',
       genre: 'Chocolates',
@@ -179,10 +182,11 @@ List<product> prodDescription = [
       requiredQuantity: 1,
       unit: 'small',
       image: 'images/snickers.png',
-      color: Colors.brown[300], cartCheck: false),
+      color: Colors.brown[300],
+      cartCheck: false),
   product(
       mrp: 60,
-      mfd:'dd/mm/yyyy',
+      mfd: 'dd/mm/yyyy',
       exp: 'dd/mm/yyyy',
       title: 'Coke',
       genre: 'Juices',
@@ -191,5 +195,6 @@ List<product> prodDescription = [
       requiredQuantity: 1,
       unit: 'ml',
       image: 'images/coke.png',
-      color: Colors.red[400], cartCheck: false),
+      color: Colors.red[400],
+      cartCheck: false),
 ];
