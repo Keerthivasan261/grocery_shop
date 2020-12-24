@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:grocery_shop/BillScreen.dart';
 import 'package:grocery_shop/CartScreen.dart';
 
 class OrderScreen extends StatefulWidget {
@@ -20,7 +21,7 @@ class _OrderScreenState extends State<OrderScreen> {
       appBar: AppBar(
         title: Text('Payment'),
         elevation: 10,
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.green,
       ),
       body: Stack(
         children: [
@@ -34,85 +35,20 @@ class _OrderScreenState extends State<OrderScreen> {
                 ]),
                 child: Column(
                   children: [
-                    GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        padding: EdgeInsets.only(left: 15),
-                        height: MediaQuery.of(context).size.height * 0.07,
-                        width: MediaQuery.of(context).size.width,
-                        child: Row(children: [
-                          Text(
-                            'PhonePe (UPI, Wallet)',
-                            style: GoogleFonts.sourceSansPro(
-                              fontSize: 20,
-                              color: Colors.black,
-                            ),
-                          )
-                        ]),
-                      ),
+                    gesturedetector(
+                      text: 'PhonePe (UPI, Wallet)',
                     ),
-                    Divider(
-                      thickness: 1,
-                      color: Colors.grey[200],
+                    divider(),
+                    gesturedetector(
+                      text: 'Credit/ Debit/ ATM card',
                     ),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        padding: EdgeInsets.only(left: 15),
-                        height: MediaQuery.of(context).size.height * 0.07,
-                        width: MediaQuery.of(context).size.width,
-                        child: Row(children: [
-                          Text(
-                            'Credit/ Debit/ ATM card',
-                            style: GoogleFonts.sourceSansPro(
-                              fontSize: 20,
-                              color: Colors.black,
-                            ),
-                          )
-                        ]),
-                      ),
+                    divider(),
+                    gesturedetector(
+                      text: 'Net Banking',
                     ),
-                    Divider(
-                      thickness: 1,
-                      color: Colors.grey[200],
-                    ),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        padding: EdgeInsets.only(left: 15),
-                        height: MediaQuery.of(context).size.height * 0.07,
-                        width: MediaQuery.of(context).size.width,
-                        child: Row(children: [
-                          Text(
-                            'Net Banking',
-                            style: GoogleFonts.sourceSansPro(
-                              fontSize: 20,
-                              color: Colors.black,
-                            ),
-                          )
-                        ]),
-                      ),
-                    ),
-                    Divider(
-                      thickness: 1,
-                      color: Colors.grey[200],
-                    ),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        padding: EdgeInsets.only(left: 15),
-                        height: MediaQuery.of(context).size.height * 0.07,
-                        width: MediaQuery.of(context).size.width,
-                        child: Row(children: [
-                          Text(
-                            'Cash on Delivery',
-                            style: GoogleFonts.sourceSansPro(
-                              fontSize: 20,
-                              color: Colors.black,
-                            ),
-                          )
-                        ]),
-                      ),
+                    divider(),
+                    gesturedetector(
+                      text: 'Cash on Delivery',
                     ),
                   ],
                 ),
@@ -138,69 +74,80 @@ class _OrderScreenState extends State<OrderScreen> {
                             fontWeight: FontWeight.w600),
                       ),
                     ),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        padding: EdgeInsets.only(left: 15, right: 15),
-                        height: MediaQuery.of(context).size.height * 0.07,
-                        width: MediaQuery.of(context).size.width,
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Price',
-                                style: GoogleFonts.sourceSansPro(
-                                  fontSize: 18,
-                                  color: Colors.black,
-                                ),
+                    Container(
+                      padding: EdgeInsets.only(left: 15, right: 15),
+                      height: MediaQuery.of(context).size.height * 0.07,
+                      width: MediaQuery.of(context).size.width,
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Price',
+                              style: GoogleFonts.sourceSansPro(
+                                fontSize: 18,
+                                color: Colors.black,
                               ),
-                              Text(
-                                widget.mrpprice != null
-                                    ? '₹ ${widget.mrpprice}'
-                                    : '₹ 0',
-                                style: GoogleFonts.sourceSansPro(
-                                  fontSize: 20,
-                                  color: Colors.black,
-                                ),
-                              )
-                            ]),
-                      ),
+                            ),
+                            Text(
+                              widget.mrpprice != null
+                                  ? '₹ ${widget.mrpprice}'
+                                  : '₹ 0',
+                              style: GoogleFonts.sourceSansPro(
+                                fontSize: 20,
+                                color: Colors.black,
+                              ),
+                            )
+                          ]),
                     ),
                     Divider(
                       thickness: 1,
-                      color: Colors.grey[200],
+                      indent: 15,
+                      endIndent: 15,
+                      color: Colors.grey[300],
                     ),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        padding: EdgeInsets.only(left: 15, right: 15),
-                        height: MediaQuery.of(context).size.height * 0.07,
-                        width: MediaQuery.of(context).size.width,
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Amount payable',
-                                style: GoogleFonts.sourceSansPro(
-                                  fontSize: 21,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.red,
-                                ),
+                    Container(
+                      padding: EdgeInsets.only(left: 15, right: 15),
+                      height: MediaQuery.of(context).size.height * 0.07,
+                      width: MediaQuery.of(context).size.width,
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Amount payable',
+                              style: GoogleFonts.sourceSansPro(
+                                fontSize: 21,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.green,
                               ),
-                              Text(
-                                widget.payableprice != null
-                                    ? '₹ ${widget.payableprice}'
-                                    : '₹ 0',
-                                style: GoogleFonts.sourceSansPro(
-                                  fontSize: 25,
-                                  color: Colors.black,
-                                ),
-                              )
-                            ]),
-                      ),
+                            ),
+                            Text(
+                              widget.payableprice != null
+                                  ? '₹ ${widget.payableprice}'
+                                  : '₹ 0',
+                              style: GoogleFonts.sourceSansPro(
+                                fontSize: 25,
+                                color: Colors.black,
+                              ),
+                            )
+                          ]),
                     ),
                   ],
                 ),
+              ),
+            ),
+            FlatButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => BillScreen(),
+                  ),
+                );
+              },
+              child: Text(
+                'Click here for Bill !!',
+                style: TextStyle(
+                    fontSize: 20, letterSpacing: 1.5, color: Colors.red[600]),
               ),
             ),
           ]),
@@ -249,10 +196,10 @@ class _OrderScreenState extends State<OrderScreen> {
                           style: TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.w600,
-                            color: Colors.blue[500],
+                            color: Colors.green[600],
                             shadows: [
                               Shadow(
-                                  color: Colors.black.withOpacity(0.4),
+                                  color: Colors.green.withOpacity(0.4),
                                   blurRadius: 4,
                                   offset: Offset(1, 2))
                             ],
@@ -264,6 +211,53 @@ class _OrderScreenState extends State<OrderScreen> {
             ),
           )
         ],
+      ),
+    );
+  }
+}
+
+class divider extends StatelessWidget {
+  const divider({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Divider(
+      thickness: 1,
+      color: Colors.grey[200],
+    );
+  }
+}
+
+class gesturedetector extends StatelessWidget {
+  final String text;
+
+  gesturedetector({
+    this.text,
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, 'end');
+      },
+      child: Container(
+        color: Colors.white,
+        padding: EdgeInsets.only(left: 15),
+        height: MediaQuery.of(context).size.height * 0.07,
+        width: MediaQuery.of(context).size.width,
+        child: Row(children: [
+          Text(
+            text,
+            style: GoogleFonts.sourceSansPro(
+              fontSize: 20,
+              color: Colors.black,
+            ),
+          )
+        ]),
       ),
     );
   }

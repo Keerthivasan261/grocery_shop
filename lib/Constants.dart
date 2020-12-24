@@ -1,72 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:gradient_input_border/gradient_input_border.dart';
 
-InputDecoration kDecor = InputDecoration(
-  fillColor: Colors.white,
-  alignLabelWithHint: true,
-  hintStyle: TextStyle(color: Colors.grey[400]),
-  border: GradientOutlineInputBorder(
-    borderRadius: BorderRadius.circular(5),
-    borderSide: BorderSide(color: Colors.greenAccent[400], width: 2),
-    focusedGradient: LinearGradient(
-      colors: [
-        Colors.greenAccent[400],
-        Colors.tealAccent[400],
-        Colors.cyan[400],
-        Colors.blue
-      ],
-    ),
-    unfocusedGradient: LinearGradient(
-      colors: [
-        Colors.greenAccent[400],
-        Colors.tealAccent[400],
-        Colors.cyan[400],
-        Colors.blue
-      ],
-    ),
-  ),
-  enabledBorder: GradientOutlineInputBorder(
-    focusedGradient: LinearGradient(
-      colors: [
-        Colors.greenAccent[400],
-        Colors.tealAccent[400],
-        Colors.cyan[400],
-        Colors.blue
-      ],
-    ),
-    unfocusedGradient: LinearGradient(
-      colors: [
-        Colors.greenAccent[400],
-        Colors.tealAccent[400],
-        Colors.cyan[400],
-        Colors.blue
-      ],
-    ),
-    borderRadius: BorderRadius.circular(35),
-    borderSide: BorderSide(color: Colors.greenAccent[400], width: 2),
-  ),
-  focusedBorder: GradientOutlineInputBorder(
-    borderRadius: BorderRadius.circular(35),
-    borderSide: BorderSide(color: Colors.greenAccent[400], width: 4),
-    focusedGradient: LinearGradient(
-      colors: [
-        Colors.greenAccent[400],
-        Colors.tealAccent[400],
-        Colors.cyan[400],
-        Colors.blue
-      ],
-    ),
-    unfocusedGradient: LinearGradient(
-      colors: [
-        Colors.greenAccent[400],
-        Colors.tealAccent[400],
-        Colors.cyan[400],
-        Colors.blue
-      ],
-    ),
-  ),
-);
+TextStyle kTextStyle =
+GoogleFonts.robotoMono(color: Colors.grey[800], fontSize: 18);
 
 class product {
   final int mrp;
@@ -102,8 +38,6 @@ class product {
   });
 }
 
-TextStyle kTextStyle =
-    GoogleFonts.robotoMono(color: Colors.grey[800], fontSize: 18);
 List<product> cartitems = [];
 List<product> prodDescription = [
   product(

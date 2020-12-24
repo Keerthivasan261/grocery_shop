@@ -295,7 +295,7 @@ class _CartScreenState extends State<CartScreen> {
                   Padding(
                       padding: EdgeInsets.only(right: 20),
                       child: RaisedButton(
-                        color: Colors.red,
+                        color: Colors.green,
                         onPressed: () {
                           if (cartitems.isNotEmpty) {
                             Navigator.push(

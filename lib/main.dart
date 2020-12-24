@@ -1,11 +1,14 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:grocery_shop/LoginScreen.dart';
+import 'package:grocery_shop/OrderScreen.dart';
 import 'package:grocery_shop/ProductDescription.dart';
 import 'package:grocery_shop/RegistrationScreen.dart';
 import 'package:grocery_shop/WelcomeScreen.dart';
 import 'package:grocery_shop/MainScreen.dart';
 import 'package:grocery_shop/ProductScreen.dart';
+
+import 'EndScreen.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,6 +24,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: 'main',
       routes: {
+        'order':(context)=>OrderScreen(),
+        'end':(context)=>EndScreen(),
         'desc':(context) => ProductDescription(),
         'product':(context) => ProductScreen(),
         'welcome':(context)=> WelcomeScreen(),

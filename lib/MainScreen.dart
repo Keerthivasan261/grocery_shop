@@ -1,9 +1,13 @@
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:grocery_shop/Constants.dart';
 import 'package:grocery_shop/ProductScreen.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+
+Store storename;
 
 class Store {
   final String title;
@@ -39,8 +43,6 @@ class _MainScreenState extends State<MainScreen> {
       address: 'Mumbai',
     ),
   ];
-  TextStyle kTextStyle = TextStyle();
-  TextButton kTextButton = TextButton(child: Text('Profile'),onPressed: (){});
 
   @override
   Widget build(BuildContext context) {
@@ -49,37 +51,118 @@ class _MainScreenState extends State<MainScreen> {
       drawer: Drawer(
         elevation: 70,
         child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(top: 50, left: 20, bottom: 20),
-              child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
                 children: [
-                  Container(
-                    height: 50,
-                    width: 50,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('images/trolley.png'),
-                      ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 50, left: 20, bottom: 20),
+                    child: Row(
+                      children: [
+                        Container(
+                          height: 50,
+                          width: 50,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage('images/trolley.png'),
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 30),
+                        Text(
+                          'Trolley',
+                          style: GoogleFonts.pacifico(
+                              fontSize: 28,
+                              color: Colors.grey[800],
+                              letterSpacing: 1.5),
+                        )
+                      ],
                     ),
                   ),
-                  SizedBox(width: 30),
-                  Text(
-                    'Trolley',
-                    style: GoogleFonts.pacifico(
-                        fontSize: 28,
-                        color: Colors.grey[800],
-                        letterSpacing: 1.5),
-                  )
+                  drawerText(
+                    text: 'Profile',
+                    onpressed: () {},
+                  ),
+                  drawerText(
+                    text: 'Nearby Store',
+                    onpressed: () {},
+                  ),
+                  drawerText(
+                    text: 'Shopping History',
+                    onpressed: () {},
+                  ),
+                  drawerText(
+                    text: 'Shopping Live',
+                    onpressed: () {},
+                  ),
+                  drawerText(
+                    text: 'Sign Out',
+                    onpressed: () {},
+                  ),
                 ],
               ),
-            ),
-            TextButton(
-              child: Text('Profile'),
-              onPressed: () {},
-            )
-          ],
-        ),
+              ExpansionTile(
+                title: Text(
+                  'Contact us',
+                  style: TextStyle(fontSize: 20, color: Colors.black),
+                ),
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5, bottom: 5),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: IconButton(
+                              icon: Icon(
+                                MdiIcons.facebook,
+                                size: 35,
+                                color: Colors.blue[800],
+                              ),
+                              onPressed: () {}),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: IconButton(
+                              icon: Icon(
+                                MdiIcons.twitter,
+                                size: 35,
+                                color: Colors.blue[400],
+                              ),
+                              onPressed: () {}),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: IconButton(
+                              icon: Icon(
+                                MdiIcons.instagram,
+                                size: 35,
+                                color: Colors.red[400],
+                              ),
+                              onPressed: () {}),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: IconButton(
+                              icon: Icon(
+                                MdiIcons.gmail,
+                                size: 35,
+                                color: Colors.red[700],
+                              ),
+                              onPressed: () {}),
+                        ),
+
+                      ],
+                    ),
+                  ),
+                  ListTile(
+                    leading: Icon(MdiIcons.phone,size: 30,),
+                    title: Text('+91 99XXX 99XXX ',style: TextStyle(fontSize: 18,fontWeight: FontWeight.w400),),
+                  )
+                ],
+              )
+            ]),
       ),
       body: SafeArea(
         top: false,
@@ -140,6 +223,7 @@ class _MainScreenState extends State<MainScreen> {
                                 key: key,
                                 itemSubmitted: (item) async {
                                   selected = item;
+                                  storename = item;
                                   return selected.title == null
                                       ? Scaffold.of(context).showSnackBar(
                                           SnackBar(
@@ -241,6 +325,35 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                   ),
                 ]),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class drawerText extends StatelessWidget {
+  final String text;
+  final Function onpressed;
+
+  const drawerText({
+    this.onpressed,
+    this.text,
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onpressed,
+      child: Container(
+        padding: EdgeInsets.only(left: 20, top: 20),
+        alignment: Alignment.centerLeft,
+        child: Text(
+          text,
+          style: GoogleFonts.openSans(
+            fontSize: 20,
+            fontWeight: FontWeight.w500,
           ),
         ),
       ),
