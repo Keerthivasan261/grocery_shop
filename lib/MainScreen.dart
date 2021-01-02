@@ -1,13 +1,20 @@
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:grocery_shop/Constants.dart';
+import 'package:grocery_shop/DrawerScreens/GroupShopping.dart';
+import 'package:grocery_shop/DrawerScreens/NearbyStore.dart';
+import 'package:grocery_shop/DrawerScreens/Profile.dart';
+import 'package:grocery_shop/DrawerScreens/ShoppingHistory.dart';
+import 'package:grocery_shop/DrawerScreens/ShoppingLive.dart';
 import 'package:grocery_shop/ProductScreen.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Store storename;
+
 
 class Store {
   final String title;
@@ -24,7 +31,9 @@ class MainScreen extends StatefulWidget {
   _MainScreenState createState() => _MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _MainScreenState extends State<MainScreen>
+    with SingleTickerProviderStateMixin {
+  final _auth = FirebaseAuth.instance;
   String barcode = '';
   var controller = TextEditingController();
   GlobalKey key = GlobalKey<AutoCompleteTextFieldState<Store>>();
@@ -43,6 +52,14 @@ class _MainScreenState extends State<MainScreen> {
       address: 'Mumbai',
     ),
   ];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    print(_auth.currentUser);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,31 +90,107 @@ class _MainScreenState extends State<MainScreen> {
                           'Trolley',
                           style: GoogleFonts.pacifico(
                               fontSize: 28,
-                              color: Colors.grey[800],
+                              color: Colors.green,
                               letterSpacing: 1.5),
+                        )
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 10),
+                    child: Row(
+                      children: [
+                        Container(
+                          height: 40,
+                          width: 40,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(25),
+                            image: DecorationImage(
+                              image: AssetImage('images/unknownuser.jpg'),
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 10),
+                        Container(
+                          width: MediaQuery.of(context).size.width*0.5,
+                          child: Text(
+                            '${_auth.currentUser.email}',
+                            textAlign: TextAlign.justify,
+                            style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.grey[800],
+                                ),
+                          ),
                         )
                       ],
                     ),
                   ),
                   drawerText(
                     text: 'Profile',
-                    onpressed: () {},
+                    onpressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Profile(),
+                        ),
+                      );
+                    },
                   ),
                   drawerText(
                     text: 'Nearby Store',
-                    onpressed: () {},
+                    onpressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => NearbyStore(stores: StoreDescription),
+                        ),
+                      );
+                    },
                   ),
                   drawerText(
                     text: 'Shopping History',
-                    onpressed: () {},
+                    onpressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ShoppingHistory(),
+                        ),
+                      );
+                    },
                   ),
                   drawerText(
                     text: 'Shopping Live',
-                    onpressed: () {},
+                    onpressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ShoppingLive(),
+                        ),
+                      );
+                    },
+                  ),
+                  drawerText(
+                    text: 'Group Shopping',
+                    onpressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => GroupShopping(),
+                        ),
+                      );
+                    },
                   ),
                   drawerText(
                     text: 'Sign Out',
-                    onpressed: () {},
+                    onpressed: () async{
+                      final SharedPreferences preferences = await SharedPreferences.getInstance();
+                      preferences.remove('email');
+                      _auth.signOut();
+                      if (_auth.currentUser == null) {
+                        Navigator.pushReplacementNamed(context, 'welcome');
+                      }
+                    },
                   ),
                 ],
               ),
@@ -138,7 +231,7 @@ class _MainScreenState extends State<MainScreen> {
                               icon: Icon(
                                 MdiIcons.instagram,
                                 size: 35,
-                                color: Colors.red[400],
+                                color: Colors.red,
                               ),
                               onPressed: () {}),
                         ),
@@ -152,13 +245,19 @@ class _MainScreenState extends State<MainScreen> {
                               ),
                               onPressed: () {}),
                         ),
-
                       ],
                     ),
                   ),
                   ListTile(
-                    leading: Icon(MdiIcons.phone,size: 30,),
-                    title: Text('+91 99XXX 99XXX ',style: TextStyle(fontSize: 18,fontWeight: FontWeight.w400),),
+                    leading: Icon(
+                      MdiIcons.phone,
+                      size: 30,
+                    ),
+                    title: Text(
+                      '+91 99XXX 99XXX ',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+                    ),
                   )
                 ],
               )
@@ -194,166 +293,139 @@ class _MainScreenState extends State<MainScreen> {
                       actions: [],
                     ),
                   ),
-                  SingleChildScrollView(
-                    child: Container(
-                      margin: EdgeInsets.fromLTRB(15, 0, 15, 15),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(25),
-                          color: Colors.grey[50]),
-                      width: double.infinity,
-                      height: MediaQuery.of(context).size.height * 0.63,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.fromLTRB(50, 0, 50, 15),
-                            child: Builder(
-                              builder: (context) =>
-                                  AutoCompleteTextField<Store>(
-                                decoration: InputDecoration(
-                                  hintText: 'Search your store',
-                                  hintStyle: TextStyle(),
-                                  alignLabelWithHint: true,
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(5)),
-                                  enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(5)),
-                                ),
-                                suggestions: StoreDescription,
-                                key: key,
-                                itemSubmitted: (item) async {
-                                  selected = item;
-                                  storename = item;
-                                  return selected.title == null
-                                      ? Scaffold.of(context).showSnackBar(
-                                          SnackBar(
-                                            content: Text(
-                                                'Invalid data!!  Try Again'),
-                                          ),
-                                        )
-                                      : Navigator.pushReplacement(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => ProductScreen(
-                                              productitem: selected,
-                                            ),
-                                          ),
-                                        );
-                                },
-                                itemBuilder: (context, item) => ListTile(
-                                  title: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          item.title,
-                                          style: TextStyle(fontSize: 16),
-                                        ),
-                                        Text(
-                                          item.address,
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              color: Colors.grey[700]),
-                                        ),
-                                      ]),
-                                ),
-                                itemFilter: (suggestion, input) => suggestion
-                                    .title
-                                    .toLowerCase()
-                                    .startsWith(input.toLowerCase()),
-                                itemSorter: (a, b) {
-                                  return 1;
-                                },
+                  Container(
+                    margin: EdgeInsets.fromLTRB(15, 0, 15, 15),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25),
+                        color: Colors.grey[200]),
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height * 0.63,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.fromLTRB(50, 0, 50, 15),
+                          child: Builder(
+                            builder: (context) =>
+                                AutoCompleteTextField<Store>(
+                              decoration: InputDecoration(
+                                hintText: 'Search your store',
+                                hintStyle: TextStyle(),
+                                alignLabelWithHint: true,
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5)),
+                                enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5)),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(width: 2,color: Colors.green[400]),
+                                  borderRadius: BorderRadius.circular(5)
+                                )
                               ),
-                            ),
-                          ),
-                          Center(
-                            child: Text(
-                              'or',
-                              style: TextStyle(fontSize: 20),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                            child: FlatButton(
-                              child: Container(
-                                height: 40,
-                                width: 160,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  color: Colors.green,
-                                ),
-                                child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                              suggestions: StoreDescription,
+                              key: key,
+                              itemSubmitted: (item) async {
+                                selected = item;
+                                storename = item;
+                                return selected.title == null
+                                    ? Scaffold.of(context).showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                              'Invalid data!!  Try Again'),
+                                        ),
+                                      )
+                                    : Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => ProductScreen(
+                                            productitem: selected,
+                                          ),
+                                        ),
+                                      );
+                              },
+                              itemBuilder: (context, item) => ListTile(
+                                title: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        'Scan QR',
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 17),
+                                        item.title,
+                                        style: TextStyle(fontSize: 16),
                                       ),
-                                      SizedBox(width: 10),
-                                      Icon(
-                                        MdiIcons.qrcodeScan,
-                                        color: Colors.white,
-                                        size: 28,
+                                      Text(
+                                        item.address,
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            color: Colors.grey[700]),
                                       ),
                                     ]),
                               ),
-                              onPressed: () async {
-                                try {
-                                  barcode =
-                                      await FlutterBarcodeScanner.scanBarcode(
-                                          '#ffff1100',
-                                          'Cancel',
-                                          true,
-                                          ScanMode.BARCODE);
-                                  setState(() {
-                                    if (barcode != '-1') {
-                                      this.barcode = barcode;
-                                    } else {
-                                      barcode = '';
-                                    }
-                                  });
-                                } catch (e) {
-                                  print(e);
-                                }
+                              itemFilter: (suggestion, input) => suggestion
+                                  .title
+                                  .toLowerCase()
+                                  .startsWith(input.toLowerCase()),
+                              itemSorter: (a, b) {
+                                return 1;
                               },
                             ),
-                          )
-                        ],
-                      ),
+                          ),
+                        ),
+                        Center(
+                          child: Text(
+                            'or',
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                          child: FlatButton(
+                            child: Container(
+                              height: 40,
+                              width: 160,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                color: Colors.green,
+                              ),
+                              child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Scan QR',
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 17),
+                                    ),
+                                    SizedBox(width: 10),
+                                    Icon(
+                                      MdiIcons.qrcodeScan,
+                                      color: Colors.white,
+                                      size: 28,
+                                    ),
+                                  ]),
+                            ),
+                            onPressed: () async {
+                              try {
+                                barcode =
+                                    await FlutterBarcodeScanner.scanBarcode(
+                                        '#ffff1100',
+                                        'Cancel',
+                                        true,
+                                        ScanMode.BARCODE);
+                                setState(() {
+                                  if (barcode != '-1') {
+                                    this.barcode = barcode;
+                                  } else {
+                                    barcode = '';
+                                  }
+                                });
+                              } catch (e) {
+                                print(e);
+                              }
+                            },
+                          ),
+                        )
+                      ],
                     ),
                   ),
                 ]),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class drawerText extends StatelessWidget {
-  final String text;
-  final Function onpressed;
-
-  const drawerText({
-    this.onpressed,
-    this.text,
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onpressed,
-      child: Container(
-        padding: EdgeInsets.only(left: 20, top: 20),
-        alignment: Alignment.centerLeft,
-        child: Text(
-          text,
-          style: GoogleFonts.openSans(
-            fontSize: 20,
-            fontWeight: FontWeight.w500,
           ),
         ),
       ),

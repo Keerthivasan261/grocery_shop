@@ -277,7 +277,7 @@ class _CartScreenState extends State<CartScreen> {
                         style: TextStyle(fontSize: 18, color: Colors.grey[800]),
                         children: [
                           TextSpan(
-                            text: '₹ ${priceSum()}',
+                            text: '₹ ${priceSum()}  ',
                             style: TextStyle(
                                 color: Colors.grey[700], fontSize: 23),
                           ),
@@ -285,7 +285,7 @@ class _CartScreenState extends State<CartScreen> {
                             text: (mrpSum() != 0) ? '₹ ${mrpSum()}' : '',
                             style: TextStyle(
                                 decoration: TextDecoration.lineThrough,
-                                fontSize: 15,
+                                fontSize: 16,
                                 color: Colors.green),
                           ),
                         ],

@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:grocery_shop/main.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class WelcomeScreen extends StatefulWidget {
   @override
@@ -12,12 +14,10 @@ class WelcomeScreen extends StatefulWidget {
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
   bool check = true,check1=false;
-  String email, password, Error = null;
-  bool ShowSpinner = false;
-  var user = null;
-  bool checker = false, req = false;
-  final auth = FirebaseAuth.instance;
+  String email, password;
+  bool checker = false;
   FocusNode myfocusnode1, myfocusnode2;
+  final auth = FirebaseAuth.instance;
 
   @override
   void initState() {
@@ -82,18 +82,20 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               height: check1==true?60:70,
               child: TextField(
                 onSubmitted: (input) {
-                  print(input);
-                  if (email == null || !email.contains('@')) {
-                    Scaffold.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Invalid email-ID'),
-                      ),
-                    );
-                    checker = false;
-                  } else {
-                    checker = true;
-                    myfocusnode1.requestFocus();
-                  }
+                  setState(() {
+                    if (email == null || !email.contains('@')) {
+                      Scaffold.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Invalid email-ID'),
+                        ),
+                      );
+                      checker = false;
+                    } else {
+                      check1=false;
+                      checker = true;
+                      myfocusnode1.requestFocus();
+                    }
+                  });
                 },
                 style: TextStyle(
                   fontSize: 17,
@@ -118,20 +120,17 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         BorderSide(color: Colors.greenAccent[700], width: 2.5),
                   ),
                 ),
-                /*kDecor.copyWith(
-                  hintText: 'Email-ID',
-                  hintStyle: TextStyle(fontSize: 15),
-                ),*/
                 onChanged: (value) {
-                  email = value;
-                  if (email == null ||
-                      !email.contains('@') ||
-                      !email.contains('.')) {
-                    checker = false;
-                  } else {
-                    check1=false;
-                    checker = true;
-                  }
+                  setState(() {
+                    email = value;
+                    if (email == null ||
+                        !email.contains('@')) {
+                      checker = false;
+                    } else {
+                      check1=false;
+                      checker = true;
+                    }
+                  });
                 },
               ),
             ),
@@ -144,16 +143,18 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               child: TextField(
                 focusNode: myfocusnode1,
                 onSubmitted: (input) {
-                  if (password == null || password.length < 5) {
-                    Scaffold.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Invalid password'),
-                      ),
-                    );
-                    checker = false;
-                  } else {
-                    checker = true;
-                  }
+                  setState(() {
+                    if (password == null || password.length < 5) {
+                      Scaffold.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Invalid password'),
+                        ),
+                      );
+                      checker = false;
+                    } else {
+                      checker = true;
+                    }
+                  });
                 },
                 style: TextStyle(fontSize: 17, letterSpacing: 1),
                 obscureText: check == true ? true : false,
@@ -188,12 +189,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   ),
                 ),
                 onChanged: (value) {
-                  password = value;
-                  if (password == null || password.length <= 3) {
-                    checker = false;
-                  } else {
-                    checker = true;
-                  }
+                  setState(() {
+                    password = value;
+                    if (password == null || password.length <= 3) {
+                      checker = false;
+                    } else {
+                      checker = true;
+                    }
+                  });
                 },
               ),
             ),
@@ -212,27 +215,20 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           Builder(
             builder: (context) => TextButton(
               onPressed: () async {
-                user = await auth.signInWithEmailAndPassword(
-                    email: this.email, password: this.password);
-                setState(() {
                   try {
-                    if (user != null && checker == true) {
-                      print(user);
-                      req = true;
-                      Navigator.pushNamedAndRemoveUntil(
-                          context, 'main', (route) => false);
+                    final user = await auth.signInWithEmailAndPassword(
+                        email: email, password: password);
+                    print(user);
+                    if (user != null && checker==true) {
+                      print('logged in');
+                      final SharedPreferences preferences = await SharedPreferences.getInstance();
+                      preferences.setString('email', email);
+                      Navigator.pushReplacementNamed(context, 'main');
                     }
-                    if (req == false) {
-                      Scaffold.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Invalid email-ID or password'),
-                        ),
-                      );
-                    }
-                  } catch (e) {
+                  }
+                  catch (e) {
                     print(e);
                   }
-                });
               },
               child: Container(
                 child: Center(

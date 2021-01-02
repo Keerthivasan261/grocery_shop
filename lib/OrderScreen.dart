@@ -242,7 +242,7 @@ class gesturedetector extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, 'end');
+        Navigator.pushNamedAndRemoveUntil(context, 'end', (route) => false);
       },
       child: Container(
         color: Colors.white,

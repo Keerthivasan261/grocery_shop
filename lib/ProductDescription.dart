@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:grocery_shop/Constants.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:grocery_shop/CartScreen.dart';
+import 'package:grocery_shop/ProductScreen.dart';
 
 class ProductDescription extends StatefulWidget {
   final product products;
@@ -291,6 +292,7 @@ class _ProductDescriptionState extends State<ProductDescription> {
                 onPressed: () {
                   setState(
                     () {
+                      cartNum();
                       if (widget.products.cartCheck == false) {
                         cartitems.add(widget.products);
                         widget.products.cartCheck = true;

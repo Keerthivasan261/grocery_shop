@@ -1,14 +1,21 @@
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:grocery_shop/DrawerScreens/GroupShopping.dart';
 import 'package:grocery_shop/MainScreen.dart';
 import 'package:grocery_shop/ProductDescription.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:grocery_shop/Constants.dart';
 import 'package:grocery_shop/CartScreen.dart';
+import 'DrawerScreens/Profile.dart';
+import 'DrawerScreens/ShoppingHistory.dart';
+import 'DrawerScreens/ShoppingLive.dart';
 
+int cartCount;
+void cartNum(){
+    cartCount = cartitems.length;
+}
 
 class ProductScreen extends StatefulWidget {
   final Store productitem;
@@ -30,58 +37,211 @@ class _ProductScreenState extends State<ProductScreen> {
       backgroundColor: Colors.white,
       drawer: Drawer(
         elevation: 70,
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(top: 50, left: 20, bottom: 20),
+                    child: Row(
+                      children: [
+                        Container(
+                          height: 50,
+                          width: 50,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage('images/trolley.png'),
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 30),
+                        Text(
+                          'Trolley',
+                          style: GoogleFonts.pacifico(
+                              fontSize: 28,
+                              color: Colors.grey[800],
+                              letterSpacing: 1.5),
+                        )
+                      ],
+                    ),
+                  ),
+                  drawerText(
+                    text: 'Profile',
+                    onpressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Profile(),
+                        ),
+                      );
+                    },
+                  ),
+                  drawerText(
+                    text: 'Nearby Store',
+                    onpressed: () {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        'main',
+                      );
+                    },
+                  ),
+                  drawerText(
+                    text: 'Shopping History',
+                    onpressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ShoppingHistory(),
+                        ),
+                      );
+                    },
+                  ),
+                  drawerText(
+                    text: 'Shopping Live',
+                    onpressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ShoppingLive(),
+                        ),
+                      );
+                    },
+                  ),
+                  drawerText(
+                    text: 'Group Shopping',
+                    onpressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => GroupShopping(),
+                        ),
+                      );
+                    },
+                  ),
+                  drawerText(
+                    text: 'Sign Out',
+                    onpressed: () {},
+                  ),
+                ],
+              ),
+              ExpansionTile(
+                title: Text(
+                  'Contact us',
+                  style: TextStyle(fontSize: 20, color: Colors.black),
+                ),
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5, bottom: 5),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: IconButton(
+                              icon: Icon(
+                                MdiIcons.facebook,
+                                size: 35,
+                                color: Colors.blue[800],
+                              ),
+                              onPressed: () {}),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: IconButton(
+                              icon: Icon(
+                                MdiIcons.twitter,
+                                size: 35,
+                                color: Colors.blue[400],
+                              ),
+                              onPressed: () {}),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: IconButton(
+                              icon: Icon(
+                                MdiIcons.instagram,
+                                size: 35,
+                                color: Colors.red,
+                              ),
+                              onPressed: () {}),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: IconButton(
+                              icon: Icon(
+                                MdiIcons.gmail,
+                                size: 35,
+                                color: Colors.red[700],
+                              ),
+                              onPressed: () {}),
+                        ),
+                      ],
+                    ),
+                  ),
+                  ListTile(
+                    leading: Icon(
+                      MdiIcons.phone,
+                      size: 30,
+                    ),
+                    title: Text(
+                      '+91 99XXX 99XXX ',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+                    ),
+                  )
+                ],
+              )
+            ]),
       ),
       appBar: AppBar(
         title: onSearch
-            ? Expanded(
-                child: Container(
-                  height: 45,
-                  child: AutoCompleteTextField<product>(
-                    decoration: InputDecoration(
-                      hintText: 'Search for products',
-                      hintStyle: kTextStyle.copyWith(
-                          color: Colors.grey[600],
-                          fontSize: 16,
-                          decorationStyle: TextDecorationStyle.dotted),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(width: 1),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(width: 1),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(width: 3, color: Colors.red[600]),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
+            ? Container(
+                height: 50,
+                child: AutoCompleteTextField<product>(
+                  decoration: InputDecoration(
+                    hintText: 'Search for products',
+                    hintStyle: kTextStyle.copyWith(
+                        color: Colors.grey[600],
+                        fontSize: 16,
+                        decorationStyle: TextDecorationStyle.dotted),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(width: 1),
+                      borderRadius: BorderRadius.circular(5),
                     ),
-                    key: _key,
-                    suggestions: prodDescription,
-                    itemBuilder: (context, index) => ListTile(
-                      title: Text(index.title),
-                      trailing: (index.quantity != null)
-                          ? Text('Quantity: (${index.quantity} ${index.unit})')
-                          : Text('Size: ${index.unit}'),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(width: 1),
+                      borderRadius: BorderRadius.circular(5),
                     ),
-                    itemSubmitted: (index) => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ProductDescription(
-                          products: index,
-                        ),
-                      ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(width: 3, color: Colors.green[400]),
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    itemSorter: (a, b) => a.price == b.price
-                        ? 0
-                        : a.price > b.price
-                            ? -1
-                            : 1,
-                    itemFilter: (sugg, input) => sugg.title
-                        .toLowerCase()
-                        .startsWith(input.toLowerCase()),
                   ),
+                  key: _key,
+                  suggestions: prodDescription,
+                  itemBuilder: (context, index) => ListTile(
+                    title: Text(index.title),
+                    trailing: (index.quantity != null)
+                        ? Text('Quantity: (${index.quantity} ${index.unit})')
+                        : Text('Size: ${index.unit}'),
+                  ),
+                  itemSubmitted: (index) => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ProductDescription(
+                        products: index,
+                      ),
+                    ),
+                  ),
+                  itemSorter: (a, b) => a.price == b.price
+                      ? 0
+                      : a.price > b.price
+                          ? -1
+                          : 1,
+                  itemFilter: (sugg, input) =>
+                      sugg.title.toLowerCase().startsWith(input.toLowerCase()),
                 ),
               )
             : Column(
@@ -113,19 +273,34 @@ class _ProductScreenState extends State<ProductScreen> {
               });
             },
           ),
-          IconButton(
-            icon: Icon(
-              MdiIcons.cart,
-              size: 30,
-            ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => CartScreen(),
+          Stack(
+            children: [
+              IconButton(
+                icon: Icon(
+                  MdiIcons.cart,
+                  size: 30,
                 ),
-              );
-            },
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CartScreen(),
+                    ),
+                  );
+                },
+              ),
+              cartCount !=null ? Positioned(
+                top: 2,
+                left: 25,
+                child: CircleAvatar(
+                    backgroundColor: Colors.red,
+                    radius: 9,
+                    child: Text(
+                      '${cartitems.length}',
+                      style: TextStyle(color: Colors.white, fontSize: 15,fontWeight: FontWeight.w900),
+                    )),
+              ) : SizedBox(height: 0,width: 0,)
+            ],
           ),
         ],
         iconTheme: IconThemeData(color: Colors.black),
@@ -143,7 +318,7 @@ class _ProductScreenState extends State<ProductScreen> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 5,bottom: 50, right: 10),
+              padding: EdgeInsets.only(top: 5, bottom: 50, right: 10),
               child: Center(
                 /*Expanded(
                     child: Container(
@@ -310,9 +485,11 @@ class Card extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text(
-                  products.title,
-                  style: kTextStyle.copyWith(fontSize: 20),
+                Container(
+                  child: Text(
+                    products.title,
+                    style: kTextStyle.copyWith(fontSize: 20),
+                  ),
                 ),
                 RichText(
                   text: TextSpan(

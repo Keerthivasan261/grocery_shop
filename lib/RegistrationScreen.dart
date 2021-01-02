@@ -11,7 +11,7 @@ class RegistrationScreen extends StatefulWidget {
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
   String email, check,check2, password = '', confirmpassword = '';
-  final auth = FirebaseAuth.instance;
+  final _auth = FirebaseAuth.instance;
   FocusNode myfocusnode2, myfocusnode3;
   bool checker = false, req = false,confirm=false;
   bool check1 = true;
@@ -78,7 +78,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 height: 70,
                 child: TextField(
                   onSubmitted: (input) {
-                    print(input);
                     if (email == null || !email.contains('@')) {
                       Scaffold.of(context).showSnackBar(
                         SnackBar(
@@ -177,13 +176,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     ),
                   ),
                   onChanged: (value) {
+                    setState(() {
                     password = value;
                     if (password == null || password.length < 6) {
                       checker = false;
                     } else {
                       checker = true;
                     }
-                    setState(() {
                       check = authenticate(password);
                     });
                   },
@@ -250,20 +249,20 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     ),
                   ),
                   onChanged: (value) {
+                    setState(() {
                     confirmpassword = value;
                     if (confirmpassword ==password) {
-                      checker = false;
-                    } else {
                       checker = true;
+                    } else {
+                      checker = false;
                     }
-                    setState(() {
                       check2 = authenticate1(password,confirmpassword);
                     });
                   },
                 ),
               ),
             ),
-            check==null?Text(
+            check2==null?Text(
               '',
             ):Text(
                     '$check2',
@@ -288,11 +287,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         }
                       },
                     );
-                    final user = await auth.createUserWithEmailAndPassword(
+                    final user = await _auth.createUserWithEmailAndPassword(
                         email: email, password: password);
-                    if (user != null && req == true) {
-                      Navigator.pushNamedAndRemoveUntil(
-                          context, 'main', (route) => false);
+                    if (user != null && checker == true) {
+                      print('logged in');
+                      Navigator.pushReplacementNamed(
+                          context, 'main');
                     } else {
                       Scaffold.of(context).showSnackBar(
                         SnackBar(
@@ -372,7 +372,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     if (pass!=conf) {
       confirm = false;
       return '\'Password does not match\'';
-    }else if(conf=='' || conf ==null||pass=='' ||pass==null){
+    }else if(conf=='' || conf == null||pass=='' ||pass==null){
       confirm = false;
       return '';
     }

@@ -9,8 +9,9 @@ class BillScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey[300],
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 70, 20, 20),
+        padding: EdgeInsets.fromLTRB(10, 70, 10, 20),
         child: Container(
+          padding: EdgeInsets.only(bottom: 30,left: 5,right: 5),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(7),
@@ -38,6 +39,24 @@ class BillScreen extends StatelessWidget {
                       letterSpacing: 1.5),
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Date:',
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.black),
+                    ),
+                    Text(
+                      ' dd/mm/yyyy',
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                    ),
+                  ],
+                ),
+              ),
               Divider(
                 thickness: 2,
                 color: Colors.black,
@@ -52,16 +71,22 @@ class BillScreen extends StatelessWidget {
                     height: 50,
                     width: 40,
                     color: Colors.lightGreenAccent[100],
-                    child: Text('S No',style: GoogleFonts.cagliostro(fontSize: 18),),
+                    child: Text(
+                      'S No',
+                      style: GoogleFonts.cagliostro(fontSize: 18),
+                    ),
                   ),
                   Expanded(
                     child: Padding(
-                      padding: EdgeInsets.only(left: 5,right: 5),
+                      padding: EdgeInsets.only(left: 5, right: 5),
                       child: Container(
                         alignment: Alignment.center,
                         height: 50,
                         color: Colors.lightGreenAccent[100],
-                        child: Text('Product Name',style: GoogleFonts.cagliostro(fontSize: 18),),
+                        child: Text(
+                          'Product Name',
+                          style: GoogleFonts.cagliostro(fontSize: 18),
+                        ),
                       ),
                     ),
                   ),
@@ -70,7 +95,10 @@ class BillScreen extends StatelessWidget {
                     height: 50,
                     width: 40,
                     color: Colors.lightGreenAccent[100],
-                    child: Text('Qt',style: GoogleFonts.cagliostro(fontSize: 18),),
+                    child: Text(
+                      'Qt',
+                      style: GoogleFonts.cagliostro(fontSize: 18),
+                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: 5),
@@ -79,7 +107,10 @@ class BillScreen extends StatelessWidget {
                       height: 50,
                       width: 80,
                       color: Colors.lightGreenAccent[100],
-                      child: Text('price',style: GoogleFonts.cagliostro(fontSize: 18),),
+                      child: Text(
+                        'price',
+                        style: GoogleFonts.cagliostro(fontSize: 18),
+                      ),
                     ),
                   ),
                 ],
@@ -89,48 +120,69 @@ class BillScreen extends StatelessWidget {
                 children: [
                   Container(
                     alignment: Alignment.center,
-                    height: 50,
+                    height: MediaQuery.of(context).size.height,
                     width: 40,
                     color: Colors.lightGreen[50],
-                    child: ListView.builder(itemCount: cartitems.length,itemBuilder: (context,index)=>ListTile(
-                      title: Text('${index+1}'),
-                    ),),
+                    child: ListView.builder(
+                      itemCount: cartitems.length,
+                      itemBuilder: (context, index) => ListTile(
+                        title: Text('${index + 1}'),
+                      ),
+                    ),
                   ),
                   Expanded(
                     child: Padding(
-                      padding: EdgeInsets.only(left: 5,right: 5),
+                      padding: EdgeInsets.only(left: 5, right: 5),
                       child: Container(
                         alignment: Alignment.center,
-                        height: 50,
+                        height: MediaQuery.of(context).size.height,
                         color: Colors.lightGreen[50],
-                        child: ListView.builder(itemCount: cartitems.length,itemBuilder: (context,index)=>ListTile(
-                          title: Text('${cartitems[index].title}'),
-                        ),),
+                        child: ListView.builder(
+                          itemCount: cartitems.length,
+                          itemBuilder: (context, index) => ListTile(
+                            title: Text('${cartitems[index].title}'),
+                          ),
+                        ),
                       ),
                     ),
                   ),
                   Container(
                     alignment: Alignment.center,
-                    height: 50,
+                    height: MediaQuery.of(context).size.height,
                     width: 40,
                     color: Colors.lightGreen[50],
-                    child: ListView.builder(itemCount: cartitems.length,itemBuilder: (context,index)=>ListTile(
-                      title: Text('${cartitems[index].requiredQuantity}'),
-                    ),),
+                    child: ListView.builder(
+                      itemCount: cartitems.length,
+                      itemBuilder: (context, index) => ListTile(
+                        title: Text('${cartitems[index].requiredQuantity}'),
+                      ),
+                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: 5),
                     child: Container(
                       alignment: Alignment.center,
-                      height: 50,
+                      height: MediaQuery.of(context).size.height,
                       width: 80,
                       color: Colors.lightGreen[50],
-                      child: ListView.builder(itemCount: cartitems.length,itemBuilder: (context,index)=>ListTile(
-                        title: Text('${cartitems[index].price}'),
-                      ),),
+                      child: ListView.builder(
+                        itemCount: cartitems.length,
+                        itemBuilder: (context, index) => ListTile(
+                          title: Text('${cartitems[index].price*cartitems[index].requiredQuantity}'),
+                        ),
+                      ),
                     ),
                   ),
                 ],
+              ),
+              Container(
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: ListTile(
+                    leading: Text('Price: ',style: TextStyle(fontSize: 17),),
+                    trailing: Text('${priceSum()}',style: TextStyle(fontSize: 20),),
+                  ),
+                ),
               )
             ],
           ),
@@ -138,4 +190,12 @@ class BillScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+int priceSum() {
+  int sum1 = 0;
+  for (int i = 0; i < cartitems.length; i++) {
+    sum1 = sum1 + (cartitems[i].price * cartitems[i].requiredQuantity);
+  }
+  return sum1;
 }

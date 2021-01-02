@@ -40,6 +40,15 @@ class _EndScreenState extends State<EndScreen> {
   @override
   Widget build(BuildContext context) {
     return wait ? Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        actions: [
+          IconButton(icon: Icon(MdiIcons.close),color: Colors.grey[800],iconSize: 35,onPressed: (){
+            Navigator.pushNamedAndRemoveUntil(context, 'main', (route) => false);
+          },)
+        ],
+      ),
       body: Center(
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -70,6 +79,15 @@ class _EndScreenState extends State<EndScreen> {
             ]),
       ),
     ) : Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        actions: [
+          IconButton(icon: Icon(MdiIcons.close),color: Colors.grey[800],iconSize: 35,onPressed: (){
+            Navigator.pushNamedAndRemoveUntil(context, 'main', (route) => false);
+          },)
+        ],
+      ),
       body: Center(child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
