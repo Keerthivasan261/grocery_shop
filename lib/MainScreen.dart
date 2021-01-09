@@ -11,7 +11,6 @@ import 'package:grocery_shop/DrawerScreens/ShoppingHistory.dart';
 import 'package:grocery_shop/DrawerScreens/ShoppingLive.dart';
 import 'package:grocery_shop/ProductScreen.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 Store storename;
 
@@ -184,8 +183,6 @@ class _MainScreenState extends State<MainScreen>
                   drawerText(
                     text: 'Sign Out',
                     onpressed: () async{
-                      final SharedPreferences preferences = await SharedPreferences.getInstance();
-                      preferences.remove('email');
                       _auth.signOut();
                       if (_auth.currentUser == null) {
                         Navigator.pushReplacementNamed(context, 'welcome');

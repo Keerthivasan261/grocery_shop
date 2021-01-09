@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:grocery_shop/Constants.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class EndScreen extends StatefulWidget {
@@ -45,6 +46,7 @@ class _EndScreenState extends State<EndScreen> {
         elevation: 0,
         actions: [
           IconButton(icon: Icon(MdiIcons.close),color: Colors.grey[800],iconSize: 35,onPressed: (){
+            cartitems.removeRange(0,cartitems.length);
             Navigator.pushNamedAndRemoveUntil(context, 'main', (route) => false);
           },)
         ],
@@ -84,6 +86,7 @@ class _EndScreenState extends State<EndScreen> {
         elevation: 0,
         actions: [
           IconButton(icon: Icon(MdiIcons.close),color: Colors.grey[800],iconSize: 35,onPressed: (){
+            cartitems.removeRange(0,cartitems.length-1);
             Navigator.pushNamedAndRemoveUntil(context, 'main', (route) => false);
           },)
         ],

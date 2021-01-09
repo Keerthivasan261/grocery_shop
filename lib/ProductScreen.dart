@@ -1,4 +1,5 @@
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -30,6 +31,7 @@ class _ProductScreenState extends State<ProductScreen> {
   String barcode = '';
   GlobalKey _key = GlobalKey<AutoCompleteTextFieldState<product>>();
   bool onSearch = false;
+  final _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -121,7 +123,12 @@ class _ProductScreenState extends State<ProductScreen> {
                   ),
                   drawerText(
                     text: 'Sign Out',
-                    onpressed: () {},
+                    onpressed: () async{
+                      _auth.signOut();
+                      if (_auth.currentUser == null) {
+                        Navigator.pushReplacementNamed(context, 'welcome');
+                      }
+                    },
                   ),
                 ],
               ),
@@ -273,34 +280,19 @@ class _ProductScreenState extends State<ProductScreen> {
               });
             },
           ),
-          Stack(
-            children: [
-              IconButton(
-                icon: Icon(
-                  MdiIcons.cart,
-                  size: 30,
+          IconButton(
+            icon: Icon(
+              MdiIcons.cart,
+              size: 30,
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CartScreen(),
                 ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => CartScreen(),
-                    ),
-                  );
-                },
-              ),
-              cartCount !=null ? Positioned(
-                top: 2,
-                left: 25,
-                child: CircleAvatar(
-                    backgroundColor: Colors.red,
-                    radius: 9,
-                    child: Text(
-                      '${cartitems.length}',
-                      style: TextStyle(color: Colors.white, fontSize: 15,fontWeight: FontWeight.w900),
-                    )),
-              ) : SizedBox(height: 0,width: 0,)
-            ],
+              );
+            },
           ),
         ],
         iconTheme: IconThemeData(color: Colors.black),

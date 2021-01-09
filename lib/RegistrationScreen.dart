@@ -72,6 +72,64 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 textAlign: TextAlign.start,
               ),
             ),
+            Container(
+              padding: EdgeInsets.fromLTRB(60, 5, 60, 5),
+              height: 60,
+              child: TextField(
+                style: TextStyle(
+                  fontSize: 17,
+                ),
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  hintText: 'UserName',
+                  hintStyle: TextStyle(fontSize: 15),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                    borderSide: BorderSide(
+                        color: Colors.greenAccent[700], width: 1.5),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                    borderSide: BorderSide(
+                        color: Colors.greenAccent[700], width: 1.5),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                    borderSide: BorderSide(
+                        color: Colors.greenAccent[700], width: 2.5),
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.fromLTRB(60, 5, 60, 5),
+              height: 60,
+              child: TextField(
+                style: TextStyle(
+                  fontSize: 17,
+                ),
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  hintText: 'Phone Number',
+                  hintStyle: TextStyle(fontSize: 15),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                    borderSide: BorderSide(
+                        color: Colors.greenAccent[700], width: 1.5),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                    borderSide: BorderSide(
+                        color: Colors.greenAccent[700], width: 1.5),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                    borderSide: BorderSide(
+                        color: Colors.greenAccent[700], width: 2.5),
+                  ),
+                ),
+              ),
+            ),
             Builder(
               builder: (context) => Container(
                 padding: EdgeInsets.fromLTRB(60, 10, 60, 10),
