@@ -14,7 +14,6 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 
 Store storename;
 
-
 class Store {
   final String title;
   final String address;
@@ -111,15 +110,15 @@ class _MainScreenState extends State<MainScreen>
                         ),
                         SizedBox(width: 10),
                         Container(
-                          width: MediaQuery.of(context).size.width*0.5,
+                          width: MediaQuery.of(context).size.width * 0.5,
                           child: Text(
                             '${_auth.currentUser.email}',
                             textAlign: TextAlign.justify,
                             style: TextStyle(
-                                fontSize: 17,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.grey[800],
-                                ),
+                              fontSize: 17,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.grey[800],
+                            ),
                           ),
                         )
                       ],
@@ -142,7 +141,8 @@ class _MainScreenState extends State<MainScreen>
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => NearbyStore(stores: StoreDescription),
+                          builder: (context) =>
+                              NearbyStore(stores: StoreDescription),
                         ),
                       );
                     },
@@ -182,8 +182,8 @@ class _MainScreenState extends State<MainScreen>
                   ),
                   drawerText(
                     text: 'Sign Out',
-                    onpressed: () async{
-                      _auth.signOut();
+                    onpressed: () async {
+                      await _auth.signOut();
                       if (_auth.currentUser == null) {
                         Navigator.pushReplacementNamed(context, 'welcome');
                       }
@@ -303,21 +303,19 @@ class _MainScreenState extends State<MainScreen>
                         Container(
                           padding: EdgeInsets.fromLTRB(50, 0, 50, 15),
                           child: Builder(
-                            builder: (context) =>
-                                AutoCompleteTextField<Store>(
+                            builder: (context) => AutoCompleteTextField<Store>(
                               decoration: InputDecoration(
-                                hintText: 'Search your store',
-                                hintStyle: TextStyle(),
-                                alignLabelWithHint: true,
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(5)),
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(5)),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(width: 2,color: Colors.green[400]),
-                                  borderRadius: BorderRadius.circular(5)
-                                )
-                              ),
+                                  hintText: 'Search your store',
+                                  hintStyle: TextStyle(),
+                                  alignLabelWithHint: true,
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(5)),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(5)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          width: 2, color: Colors.green[400]),
+                                      borderRadius: BorderRadius.circular(5))),
                               suggestions: StoreDescription,
                               key: key,
                               itemSubmitted: (item) async {
@@ -326,8 +324,8 @@ class _MainScreenState extends State<MainScreen>
                                 return selected.title == null
                                     ? Scaffold.of(context).showSnackBar(
                                         SnackBar(
-                                          content: Text(
-                                              'Invalid data!!  Try Again'),
+                                          content:
+                                              Text('Invalid data!!  Try Again'),
                                         ),
                                       )
                                     : Navigator.pushReplacement(
@@ -408,7 +406,16 @@ class _MainScreenState extends State<MainScreen>
                                         ScanMode.BARCODE);
                                 setState(() {
                                   if (barcode != '-1') {
-                                    this.barcode = barcode;
+                                    int code = int.parse(barcode);
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => ProductScreen(
+                                          productitem:
+                                              StoreDescription[code - 1],
+                                        ),
+                                      ),
+                                    );
                                   } else {
                                     barcode = '';
                                   }

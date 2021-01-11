@@ -14,8 +14,9 @@ import 'DrawerScreens/ShoppingHistory.dart';
 import 'DrawerScreens/ShoppingLive.dart';
 
 int cartCount;
-void cartNum(){
-    cartCount = cartitems.length;
+
+void cartNum() {
+  cartCount = cartitems.length;
 }
 
 class ProductScreen extends StatefulWidget {
@@ -32,6 +33,13 @@ class _ProductScreenState extends State<ProductScreen> {
   GlobalKey _key = GlobalKey<AutoCompleteTextFieldState<product>>();
   bool onSearch = false;
   final _auth = FirebaseAuth.instance;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print(prodDescription.length);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -123,7 +131,7 @@ class _ProductScreenState extends State<ProductScreen> {
                   ),
                   drawerText(
                     text: 'Sign Out',
-                    onpressed: () async{
+                    onpressed: () async {
                       _auth.signOut();
                       if (_auth.currentUser == null) {
                         Navigator.pushReplacementNamed(context, 'welcome');
@@ -194,7 +202,7 @@ class _ProductScreenState extends State<ProductScreen> {
                     title: Text(
                       '+91 99XXX 99XXX ',
                       style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+                      TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
                     ),
                   )
                 ],
@@ -204,68 +212,72 @@ class _ProductScreenState extends State<ProductScreen> {
       appBar: AppBar(
         title: onSearch
             ? Container(
-                height: 50,
-                child: AutoCompleteTextField<product>(
-                  decoration: InputDecoration(
-                    hintText: 'Search for products',
-                    hintStyle: kTextStyle.copyWith(
-                        color: Colors.grey[600],
-                        fontSize: 16,
-                        decorationStyle: TextDecorationStyle.dotted),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(width: 1),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(width: 1),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(width: 3, color: Colors.green[400]),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  key: _key,
-                  suggestions: prodDescription,
-                  itemBuilder: (context, index) => ListTile(
-                    title: Text(index.title),
-                    trailing: (index.quantity != null)
-                        ? Text('Quantity: (${index.quantity} ${index.unit})')
-                        : Text('Size: ${index.unit}'),
-                  ),
-                  itemSubmitted: (index) => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ProductDescription(
-                        products: index,
-                      ),
-                    ),
-                  ),
-                  itemSorter: (a, b) => a.price == b.price
-                      ? 0
-                      : a.price > b.price
-                          ? -1
-                          : 1,
-                  itemFilter: (sugg, input) =>
-                      sugg.title.toLowerCase().startsWith(input.toLowerCase()),
-                ),
-              )
-            : Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.productitem.title,
-                    style:
-                        kTextStyle.copyWith(fontSize: 20, color: Colors.black),
-                  ),
-                  Text(
-                    widget.productitem.address,
-                    style: kTextStyle.copyWith(
-                        fontSize: 15, color: Colors.grey[500]),
-                  )
-                ],
+          height: 50,
+          child: AutoCompleteTextField<product>(
+            decoration: InputDecoration(
+              hintText: 'Search for products',
+              hintStyle: kTextStyle.copyWith(
+                  color: Colors.grey[600],
+                  fontSize: 16,
+                  decorationStyle: TextDecorationStyle.dotted),
+              border: OutlineInputBorder(
+                borderSide: BorderSide(width: 1),
+                borderRadius: BorderRadius.circular(5),
               ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(width: 1),
+                borderRadius: BorderRadius.circular(5),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide:
+                BorderSide(width: 3, color: Colors.green[400]),
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+            key: _key,
+            suggestions: prodDescription,
+            itemBuilder: (context, index) =>
+                ListTile(
+                  title: Text(index.title),
+                  trailing: (index.quantity != null)
+                      ? Text('Quantity: (${index.quantity} ${index.unit})')
+                      : Text('Size: ${index.unit}'),
+                ),
+            itemSubmitted: (index) =>
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        ProductDescription(
+                          products: index,
+                        ),
+                  ),
+                ),
+            itemSorter: (a, b) =>
+            a.price == b.price
+                ? 0
+                : a.price > b.price
+                ? -1
+                : 1,
+            itemFilter: (sugg, input) =>
+                sugg.title.toLowerCase().startsWith(input.toLowerCase()),
+          ),
+        )
+            : Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              widget.productitem.title,
+              style:
+              kTextStyle.copyWith(fontSize: 20, color: Colors.black),
+            ),
+            Text(
+              widget.productitem.address,
+              style: kTextStyle.copyWith(
+                  fontSize: 15, color: Colors.grey[500]),
+            )
+          ],
+        ),
         backgroundColor: Colors.white,
         elevation: 8,
         actions: [
@@ -312,59 +324,6 @@ class _ProductScreenState extends State<ProductScreen> {
             Padding(
               padding: EdgeInsets.only(top: 5, bottom: 50, right: 10),
               child: Center(
-                /*Expanded(
-                    child: Container(
-                      padding: EdgeInsets.only(
-                        left: 30,
-                        right: 15,
-                      ),
-                      height: 50,
-                      child: AutoCompleteTextField<product>(
-                        decoration: InputDecoration(
-                          hintText: 'Search for products',
-                          hintStyle: kTextStyle.copyWith(color: Colors.grey[600]),
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(width: 1),
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(width: 1),
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(width: 3, color: Colors.red[600]),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                        key: _key,
-                        suggestions: prodDescription,
-                        itemBuilder: (context, index) => ListTile(
-                          title: Text(index.title),
-                          trailing: (index.quantity != null)
-                              ? Text(
-                                  'Quantity: (${index.quantity} ${index.unit})')
-                              : Text('Size: ${index.unit}'),
-                        ),
-                        itemSubmitted: (index) => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ProductDescription(
-                              products: index,
-                            ),
-                          ),
-                        ),
-                        itemSorter: (a, b) => a.price == b.price
-                            ? 0
-                            : a.price > b.price
-                                ? -1
-                                : 1,
-                        itemFilter: (sugg, input) => sugg.title
-                            .toLowerCase()
-                            .startsWith(input.toLowerCase()),
-                      ),
-                    ),
-                  ),*/
                 child: IconButton(
                   icon: Icon(
                     MdiIcons.barcodeScan,
@@ -377,7 +336,13 @@ class _ProductScreenState extends State<ProductScreen> {
                           '#ffff1100', 'Cancel', true, ScanMode.BARCODE);
                       setState(() {
                         if (barcode != '-1') {
-                          this.barcode = barcode;
+                          var code = barcode.toString();
+                          for (int i = 0; i <prodDescription.length; i++) {
+                            if (code == prodDescription[i].barcode) {
+                              Navigator.push(context, MaterialPageRoute(
+                                  builder: (context) => ProductDescription(products: prodDescription[i],),),);
+                            }
+                          }
                         } else {
                           barcode = '';
                         }
@@ -402,10 +367,11 @@ class _ProductScreenState extends State<ProductScreen> {
                       crossAxisSpacing: 20,
                       mainAxisSpacing: 15),
                   itemCount: prodDescription.length,
-                  itemBuilder: (context, index) => Card(
-                    indexvalue: index,
-                    products: prodDescription[index],
-                  ),
+                  itemBuilder: (context, index) =>
+                      Card(
+                        indexvalue: index,
+                        products: prodDescription[index],
+                      ),
                 ),
               ),
             )
@@ -430,9 +396,10 @@ class Card extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ProductDescription(
-              products: products,
-            ),
+            builder: (context) =>
+                ProductDescription(
+                  products: products,
+                ),
           ),
         );
       },
@@ -443,32 +410,32 @@ class Card extends StatelessWidget {
             child: Stack(children: [
               (indexvalue == 0 || indexvalue == 1)
                   ? Container(
-                      height: 20,
-                      width: 30,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              topRight: Radius.elliptical(15, 15),
-                              bottomRight: Radius.elliptical(15, 15)),
-                          color: Colors.green.withOpacity(0.7)),
-                      child: Center(
-                        child: Text(
-                          'Ad',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w500),
-                        ),
-                      ),
-                    )
+                height: 20,
+                width: 30,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.elliptical(15, 15),
+                        bottomRight: Radius.elliptical(15, 15)),
+                    color: Colors.green.withOpacity(0.7)),
+                child: Center(
+                  child: Text(
+                    'Ad',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500),
+                  ),
+                ),
+              )
                   : Container(),
               Container(
                 padding: EdgeInsets.all(10),
                 child: Center(
                     child: Image(
-                  image: AssetImage(products.image),
-                )),
+                      image: AssetImage(products.image),
+                    )),
                 decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(20)),
+                BoxDecoration(borderRadius: BorderRadius.circular(20)),
               ),
             ]),
           ),
@@ -569,12 +536,15 @@ class _CategoriesState extends State<Categories> {
             ),
             Container(
               height: 3,
-              width: MediaQuery.of(context).size.width / 6,
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width / 6,
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
                       color:
-                          selectedIndex == index ? Colors.black : Colors.white,
+                      selectedIndex == index ? Colors.black : Colors.white,
                       blurRadius: 3)
                 ],
                 color: selectedIndex == index ? Colors.black : Colors.white,
@@ -682,9 +652,7 @@ class _CategoriesState extends State<Categories> {
       itemCount: suggList.length,
     );
   }
-}*/
-
-/*
+}
 IconButton(
 onPressed: () async {
 try {
@@ -709,4 +677,57 @@ MdiIcons.barcodeScan,
 size: 30,
 color: Colors.white,
 ),
-),*/
+),
+Expanded(
+                    child: Container(
+                      padding: EdgeInsets.only(
+                        left: 30,
+                        right: 15,
+                      ),
+                      height: 50,
+                      child: AutoCompleteTextField<product>(
+                        decoration: InputDecoration(
+                          hintText: 'Search for products',
+                          hintStyle: kTextStyle.copyWith(color: Colors.grey[600]),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(width: 1),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(width: 1),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(width: 3, color: Colors.red[600]),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        key: _key,
+                        suggestions: prodDescription,
+                        itemBuilder: (context, index) => ListTile(
+                          title: Text(index.title),
+                          trailing: (index.quantity != null)
+                              ? Text(
+                                  'Quantity: (${index.quantity} ${index.unit})')
+                              : Text('Size: ${index.unit}'),
+                        ),
+                        itemSubmitted: (index) => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ProductDescription(
+                              products: index,
+                            ),
+                          ),
+                        ),
+                        itemSorter: (a, b) => a.price == b.price
+                            ? 0
+                            : a.price > b.price
+                                ? -1
+                                : 1,
+                        itemFilter: (sugg, input) => sugg.title
+                            .toLowerCase()
+                            .startsWith(input.toLowerCase()),
+                      ),
+                    ),
+                  ),*/

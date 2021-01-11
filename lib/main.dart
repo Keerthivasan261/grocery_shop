@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:grocery_shop/DrawerScreens/ShoppingLive.dart';
@@ -20,10 +21,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final _auth = FirebaseAuth.instance;
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: 'welcome',
+      initialRoute: _auth.currentUser!=null?'main':'welcome',
       routes: {
         'order':(context)=>OrderScreen(),
         'live':(context)=>ShoppingLive(),

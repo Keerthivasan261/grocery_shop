@@ -17,10 +17,12 @@ class product {
   final Color color;
   final String mfd;
   final String exp;
+  final String barcode;
   bool cartCheck;
   int requiredQuantity;
 
   product({
+    this.barcode,
     this.mrp,
     this.mfd,
     this.exp,
@@ -46,10 +48,11 @@ List<product> prodDescription = [
       exp: 'dd/mm/yyyy',
       title: 'Dettol soap',
       genre: 'body care',
-      price: 20,
-      quantity: null,
+      price: 49,
+      quantity: 125,
+      barcode: '8901396397632',
       requiredQuantity: 1,
-      unit: 'medium',
+      unit: 'g',
       image: 'images/dettol.png',
       color: Colors.green[600].withOpacity(0.5),
       cartCheck: false),
@@ -61,6 +64,7 @@ List<product> prodDescription = [
       genre: 'food',
       price: 220,
       quantity: 500,
+      barcode: '8901571000043',
       requiredQuantity: 1,
       unit: 'g',
       image: 'images/boost.png',
@@ -70,10 +74,11 @@ List<product> prodDescription = [
       mrp: 60,
       mfd: 'dd/mm/yyyy',
       exp: 'dd/mm/yyyy',
-      title: 'Coke',
+      title: 'Coca-cola',
       genre: 'food',
       price: 50,
       quantity: 500,
+      barcode: '54491472',
       requiredQuantity: 1,
       unit: 'ml',
       image: 'images/coke.png',
@@ -87,6 +92,7 @@ List<product> prodDescription = [
       genre: 'body care',
       price: 90,
       quantity: 1,
+      barcode: '4902430875042',
       requiredQuantity: 1,
       unit: 'kg',
       image: 'images/tide.png',
@@ -100,6 +106,7 @@ List<product> prodDescription = [
       genre: 'body care',
       price: 180,
       quantity: 210,
+      barcode: '079400260932',
       requiredQuantity: 1,
       unit: 'ml',
       image: 'images/axe.png',
@@ -113,6 +120,7 @@ List<product> prodDescription = [
       genre: 'food',
       price: 40,
       quantity: null,
+      barcode: '040000001027',
       requiredQuantity: 1,
       unit: 'medium',
       image: 'images/snickers.png',
@@ -126,6 +134,7 @@ List<product> prodDescription = [
       genre: 'food',
       price: 99,
       quantity: 107,
+      barcode: '038000844966',
       requiredQuantity: 1,
       unit: 'g',
       image: 'images/pringles.png',
@@ -140,6 +149,7 @@ List<product> prodDescription = [
       genre: 'food',
       price: 180,
       quantity: 500,
+      barcode: '013000626095',
       requiredQuantity: 1,
       unit: 'g',
       image: 'images/Ketchup.png',
