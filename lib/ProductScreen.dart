@@ -322,7 +322,7 @@ class _ProductScreenState extends State<ProductScreen> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 5, bottom: 50, right: 10),
+              padding: EdgeInsets.only(top: 5, bottom: 20, right: 10),
               child: Center(
                 child: IconButton(
                   icon: Icon(
@@ -352,29 +352,23 @@ class _ProductScreenState extends State<ProductScreen> {
                     }
                   },
                 ),
-                /*SizedBox(
-                    width: 10,
-                  )*/
               ),
             ),
             Expanded(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 0),
-                child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio: 0.75,
-                      crossAxisSpacing: 20,
-                      mainAxisSpacing: 15),
-                  itemCount: prodDescription.length,
-                  itemBuilder: (context, index) =>
-                      Card(
-                        indexvalue: index,
-                        products: prodDescription[index],
-                      ),
-                ),
+              child: GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount:2,
+                    childAspectRatio: 0.85,
+                    crossAxisSpacing: 20,
+                    mainAxisSpacing: 10),
+                itemCount: prodDescription.length,
+                itemBuilder: (context, index) =>
+                    Card(
+                      indexvalue: index,
+                      products: prodDescription[index],
+                    ),
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -407,69 +401,78 @@ class Card extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: Stack(children: [
-              (indexvalue == 0 || indexvalue == 1)
-                  ? Container(
-                height: 20,
-                width: 30,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.elliptical(15, 15),
-                        bottomRight: Radius.elliptical(15, 15)),
-                    color: Colors.green.withOpacity(0.7)),
-                child: Center(
-                  child: Text(
-                    'Ad',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500),
-                  ),
+            child: Padding(
+              padding: EdgeInsets.only(top: (indexvalue == 0 || indexvalue == 1)?20:0),
+              child: Stack(children: [
+                Container(
+                  padding: EdgeInsets.all(5),
+                  child: Center(
+                      child: Image(
+                        image: AssetImage(products.image),
+                      )),
+                  decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(20)),
                 ),
-              )
-                  : Container(),
-              Container(
-                padding: EdgeInsets.all(10),
-                child: Center(
-                    child: Image(
-                      image: AssetImage(products.image),
-                    )),
-                decoration:
-                BoxDecoration(borderRadius: BorderRadius.circular(20)),
-              ),
-            ]),
+                (indexvalue == 0 || indexvalue == 1)
+                    ? Container(
+                  height: 20,
+                  width: 30,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.elliptical(15, 15),
+                          bottomRight: Radius.elliptical(15, 15)),
+                      color: Colors.green.withOpacity(0.8)),
+                  child: Center(
+                    child: Text(
+                      'Ad',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                )
+                    : Container(),
+              ]),
+            ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: 5),
+            padding: EdgeInsets.only(top: 5,right: (indexvalue%2!=0)?10:0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Container(
-                  child: Text(
-                    products.title,
-                    style: kTextStyle.copyWith(fontSize: 20),
+                Flexible(
+                  child: Container(
+                    padding: EdgeInsets.only(right: 5),
+                    alignment: Alignment.center,
+                    child: Text(
+                      products.title,
+                      style: kTextStyle.copyWith(fontSize: 18),
+                    ),
                   ),
                 ),
-                RichText(
-                  text: TextSpan(
-                    text: '₹ ${products.price}\n',
-                    style: kTextStyle.copyWith(fontSize: 20),
-                    children: [
-                      TextSpan(
-                        text: '₹ ${products.mrp}',
-                        style: TextStyle(
-                            decoration: TextDecoration.lineThrough,
-                            fontSize: 16,
-                            color: Colors.green),
-                      ),
-                    ],
+                Container(
+                  child: RichText(
+                    text: TextSpan(
+                      text: '₹ ${products.price}\n',
+                      style: kTextStyle.copyWith(fontSize: 20),
+                      children: [
+                        TextSpan(
+                          text: '₹ ${products.mrp}',
+                          style: TextStyle(
+                              decoration: TextDecoration.lineThrough,
+                              fontSize: 16,
+                              color: Colors.green),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            padding: EdgeInsets.only(left: 10,bottom: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [

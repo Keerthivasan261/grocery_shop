@@ -260,7 +260,7 @@ class _ProductDescriptionState extends State<ProductDescription> {
                       height: 10,
                     ),
                     Container(
-                      height: MediaQuery.of(context).size.height * 0.16,
+                      height: MediaQuery.of(context).size.height * 0.14,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) => Padding(

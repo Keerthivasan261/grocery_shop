@@ -43,7 +43,7 @@ class product {
 List<product> cartitems = [];
 List<product> prodDescription = [
   product(
-      mrp: 25,
+      mrp: 54,
       mfd: 'dd/mm/yyyy',
       exp: 'dd/mm/yyyy',
       title: 'Dettol soap',
@@ -154,6 +154,20 @@ List<product> prodDescription = [
       unit: 'g',
       image: 'images/Ketchup.png',
       color: Colors.brown[300],
+      cartCheck: false),
+  product(
+      mrp: 12,
+      mfd: 'dd/mm/yyyy',
+      exp: 'dd/mm/yyyy',
+      title: 'Maggi noodles',
+      genre: 'food',
+      price: 10,
+      quantity: 70,
+      barcode: '013000626095',
+      requiredQuantity: 1,
+      unit: 'g',
+      image: 'images/maggi.png',
+      color: Colors.yellow[700],
       cartCheck: false),
 ];
 

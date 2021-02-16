@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:grocery_shop/DrawerScreens/ShoppingLive.dart';
 import 'package:grocery_shop/EndScreen.dart';
 import 'package:grocery_shop/MainScreen.dart';
@@ -14,6 +15,7 @@ import 'package:grocery_shop/WelcomeScreen.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(MyApp());
 }
 

@@ -47,7 +47,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       height: 100,
                       width: 100,
                       child: Image(
-                        fit: BoxFit.cover,
+                        fit: BoxFit.fitWidth,
                         image: AssetImage('images/trolley.png'),
                       ),
                     ),
