@@ -88,7 +88,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     onSubmitted: (input) {
                       setState(() {
                         if (email == null || !email.contains('@')) {
-                          Scaffold.of(context).showSnackBar(
+                          ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text('Invalid email-ID'),
                             ),
@@ -153,7 +153,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     onSubmitted: (input) {
                       setState(() {
                         if (password == null || password.length < 5) {
-                          Scaffold.of(context).showSnackBar(
+                          ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text('Invalid password'),
                             ),
