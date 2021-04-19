@@ -35,7 +35,7 @@ class _MainScreenState extends State<MainScreen>
   String barcode = '';
   var controller = TextEditingController();
   GlobalKey key = GlobalKey<AutoCompleteTextFieldState<Store>>();
-  Store selected;
+  Store selected ;
   List<Store> StoreDescription = [
     Store(
       title: 'ABC Super Market',
@@ -377,6 +377,9 @@ class _MainScreenState extends State<MainScreen>
                               height: 40,
                               width: 160,
                               decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(spreadRadius: 0.2,blurRadius: 7,color: Colors.grey,offset: Offset(3,5))
+                                ],
                                 borderRadius: BorderRadius.circular(5),
                                 color: Colors.green,
                               ),

@@ -81,9 +81,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           Builder(
             builder: (context) =>
                 Container(
-                  padding: EdgeInsets.fromLTRB(
-                      60, 10, 60, check1 == true ? 5 : 10),
-                  height: check1 == true ? 60 : 70,
+                  decoration: BoxDecoration(
+                    boxShadow: [BoxShadow(spreadRadius: 0.1,blurRadius: 5,offset: Offset(0.5,0.7),color: Colors.grey)],
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                  height: 50,
+                  width: 300,
                   child: TextField(
                     onSubmitted: (input) {
                       setState(() {
@@ -139,6 +143,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   ),
                 ),
           ),
+          SizedBox(height: 15,),
           check1 == true
               ? Text(
             '\'Enter your Email-ID\'', style: TextStyle(color: Colors.red),)
@@ -146,8 +151,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           Builder(
             builder: (context) =>
                 Container(
-                  padding: EdgeInsets.fromLTRB(60, 5, 60, 5),
-                  height: 60,
+                  decoration: BoxDecoration(
+                    boxShadow: [BoxShadow(spreadRadius: 0.1,blurRadius: 5,offset: Offset(0.5,0.7),color: Colors.grey)],
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                  height: 50,
+                  width: 300,
                   child: TextField(
                     focusNode: myfocusnode1,
                     onSubmitted: (input) {
@@ -254,6 +264,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     width: 180,
                     height: 50,
                     decoration: BoxDecoration(
+                      boxShadow: [BoxShadow(spreadRadius: 0.3,blurRadius: 15,offset: Offset(1,3),color: Colors.grey)],
                         borderRadius: BorderRadius.circular(30),
                         color: Colors.green),
                   ),

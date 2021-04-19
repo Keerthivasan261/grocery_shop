@@ -41,13 +41,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   children: [
                     Container(
                       height: 100,
-                      width: 100,
+                      width: 120,
                       child: Image(
-                        fit: BoxFit.cover,
+                        fit: BoxFit.contain,
                         image: AssetImage('images/trolley.png'),
                       ),
                     ),
                     TyperAnimatedTextKit(
+                      displayFullTextOnTap: true,
                       speed: Duration(milliseconds: 100),
                       pause: Duration(seconds: 5),
                       text: ['Trolley'],
@@ -72,9 +73,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 textAlign: TextAlign.start,
               ),
             ),
+            SizedBox(height: 15,),
             Container(
-              padding: EdgeInsets.fromLTRB(60, 5, 60, 5),
-              height: 60,
+              decoration: BoxDecoration(
+                boxShadow: [BoxShadow(spreadRadius: 0.1,blurRadius: 5,offset: Offset(0.5,0.7),color: Colors.grey)],
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(25),
+              ),
+              height: 50,
+              width: 290,
               child: TextField(
                 style: TextStyle(
                   fontSize: 17,
@@ -101,9 +108,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 ),
               ),
             ),
+            SizedBox(height: 15,),
             Container(
-              padding: EdgeInsets.fromLTRB(60, 5, 60, 5),
-              height: 60,
+              decoration: BoxDecoration(
+                boxShadow: [BoxShadow(spreadRadius: 0.1,blurRadius: 5,offset: Offset(0.5,0.7),color: Colors.grey)],
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(25),
+              ),
+              height: 50,
+              width: 290,
               child: TextField(
                 style: TextStyle(
                   fontSize: 17,
@@ -130,14 +143,20 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 ),
               ),
             ),
+            SizedBox(height: 15,),
             Builder(
               builder: (context) => Container(
-                padding: EdgeInsets.fromLTRB(60, 10, 60, 10),
-                height: 70,
+                decoration: BoxDecoration(
+                  boxShadow: [BoxShadow(spreadRadius: 0.1,blurRadius: 5,offset: Offset(0.5,0.7),color: Colors.grey)],
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                height: 50,
+                width: 290,
                 child: TextField(
                   onSubmitted: (input) {
                     if (email == null || !email.contains('@')) {
-                      Scaffold.of(context).showSnackBar(
+                      ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text('Invalid email-ID'),
                         ),
@@ -182,15 +201,21 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 ),
               ),
             ),
+            SizedBox(height: 15,),
             Builder(
               builder: (context) => Container(
-                padding: EdgeInsets.fromLTRB(60, 5, 60, 5),
-                height: 60,
+                decoration: BoxDecoration(
+                  boxShadow: [BoxShadow(spreadRadius: 0.1,blurRadius: 5,offset: Offset(0.5,0.7),color: Colors.grey)],
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                height: 50,
+                width: 290,
                 child: TextField(
                   focusNode: myfocusnode2,
                   onSubmitted: (input) {
                     if (password == null || password.length <= 4) {
-                      Scaffold.of(context).showSnackBar(
+                      ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text('Invalid password'),
                         ),
@@ -254,17 +279,22 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         color: req != true ? Colors.red : Colors.white),
                   )
                 : SizedBox(
-                    height: 8,
+                    height: 15,
                   ),
             Builder(
               builder: (context) => Container(
-                padding: EdgeInsets.fromLTRB(60, 5, 60, 5),
-                height: 60,
+                decoration: BoxDecoration(
+                  boxShadow: [BoxShadow(spreadRadius: 0.1,blurRadius: 5,offset: Offset(0.5,0.7),color: Colors.grey)],
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                height: 50,
+                width: 290,
                 child: TextField(
                   focusNode: myfocusnode3,
                   onSubmitted: (input) {
                     if (password != confirmpassword) {
-                      Scaffold.of(context).showSnackBar(
+                      ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text('Invalid password'),
                         ),
@@ -330,12 +360,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             Builder(
               builder: (context) => Padding(
                 padding: EdgeInsets.only(bottom: 20),
-                child: FlatButton(
+                child: TextButton(
                   onPressed: () async {
                     setState(
                       () {
                         if (password == null || email == null) {
-                          Scaffold.of(context).showSnackBar(
+                          ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(
                                 'Invalid email-ID or password',
@@ -352,7 +382,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       Navigator.pushReplacementNamed(
                           context, 'main');
                     } else {
-                      Scaffold.of(context).showSnackBar(
+                      ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(
                             'Invalid email-ID or password',
@@ -377,6 +407,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       width: 180,
                       height: 50,
                       decoration: BoxDecoration(
+                        boxShadow: [BoxShadow(spreadRadius: 0.3,blurRadius: 15,offset: Offset(1,3),color: Colors.grey)],
                         borderRadius: BorderRadius.circular(30),
                         color: Colors.green,
                       ),
