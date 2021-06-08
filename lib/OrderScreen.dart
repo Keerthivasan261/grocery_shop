@@ -4,10 +4,11 @@ import 'package:grocery_shop/BillScreen.dart';
 import 'package:grocery_shop/CartScreen.dart';
 
 class OrderScreen extends StatefulWidget {
+  static const id = "OrderScreen";
   final int mrpprice;
   final int payableprice;
 
-  OrderScreen({this.mrpprice, this.payableprice});
+  OrderScreen({this.mrpprice, this.payableprice,});
 
   @override
   _OrderScreenState createState() => _OrderScreenState();
@@ -135,7 +136,7 @@ class _OrderScreenState extends State<OrderScreen> {
                 ),
               ),
             ),
-            FlatButton(
+            TextButton(
               onPressed: () {
                 Navigator.push(
                   context,
@@ -192,7 +193,7 @@ class _OrderScreenState extends State<OrderScreen> {
                     child: Padding(
                         padding: EdgeInsets.only(right: 20),
                         child: Text(
-                          'Continue Shopping',
+                          'Cancel Order',
                           style: TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.w600,

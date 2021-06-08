@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class RegistrationScreen extends StatefulWidget {
+  static const id = "RegistrationScreen";
   @override
   _RegistrationScreenState createState() => _RegistrationScreenState();
 }
@@ -51,7 +52,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       displayFullTextOnTap: true,
                       speed: Duration(milliseconds: 100),
                       pause: Duration(seconds: 5),
-                      text: ['Trolley'],
+                      text: ['U-Kart'],
                       textStyle: GoogleFonts.pacifico(
                           fontSize: 50,
                           fontWeight: FontWeight.w100,

@@ -12,6 +12,7 @@ class product {
   final int quantity;
   final String unit;
   final String image;
+  final String brand;
   final Color color;
   final String mfd;
   final String exp;
@@ -23,6 +24,7 @@ class product {
   final String phoneNumber;
   final double rating;
   final int reviewers;
+  final String offer;
   final int row;
   final int column;
   final int shelf;
@@ -41,6 +43,8 @@ class product {
     this.rating,
     this.reviewers,
     this.barcode,
+    this.brand,
+    this.offer,
     this.mrp,
     this.mfd,
     this.exp,
@@ -72,9 +76,11 @@ List<product> prodDescription = [
     rating: 4.5,
     reviewers: 179,
     fssaiNo: "12216017000XXX",
+    offer: "Buy 4 get 1",
     proteins: 15.0,
     vitamins: 20.0,
     ownerInfo: "Mr.X",
+    brand: "images/nestle(milkmaid).png",
     phoneNumber: "90909XXXXX",
     row: 3,
     column: 1,
@@ -97,6 +103,8 @@ List<product> prodDescription = [
     rating: 4.5,
     reviewers: 179,
     fssaiNo: "12216017000XXX",
+    offer: "Buy 3 get 1",
+    brand: "images/Reckitt(dettol).png",
     proteins: 0,
     vitamins: 0,
     ownerInfo: "Mr.X",
@@ -123,8 +131,10 @@ List<product> prodDescription = [
     reviewers: 179,
     fssaiNo: "12216017000XXX",
     proteins: 11.0,
+    offer: "Buy 1 at 20% off",
     vitamins: 8.0,
     ownerInfo: "Mr.X",
+    brand: "images/hindustan(boost).png",
     phoneNumber: "90909XXXXX",
     row: 2,
     column: 5,
@@ -149,7 +159,9 @@ List<product> prodDescription = [
     fssaiNo: "12216017000XXX",
     proteins: 7.0,
     vitamins: 9.0,
+    offer: "Get mini pack free, worth ₹ 10",
     ownerInfo: "Mr.X",
+    brand: "images/CocaCola.png",
     phoneNumber: "90909XXXXX",
     row: 2,
     column: 1,
@@ -174,7 +186,9 @@ List<product> prodDescription = [
     fssaiNo: "12216017000XXX",
     proteins: 0,
     vitamins: 0,
+    offer: "Get 100g free with 1 Kg pack",
     ownerInfo: "Mr.X",
+    brand: "images/P&G(tide).png",
     phoneNumber: "90909XXXXX",
     row: 2,
     column: 3,
@@ -199,7 +213,9 @@ List<product> prodDescription = [
     fssaiNo: "12216017000XXX",
     proteins: 0,
     vitamins: 0,
+    offer: null,
     ownerInfo: "Mr.X",
+    brand: "images/hindustan(boost).png",
     phoneNumber: "90909XXXXX",
     row: 2,
     column: 3,
@@ -224,13 +240,15 @@ List<product> prodDescription = [
     fssaiNo: "12216017000XXX",
     proteins: 7.0,
     vitamins: 9.0,
+    offer: "Get 15% extra",
     ownerInfo: "Mr.X",
+    brand: "images/Mars(snickers).png",
     phoneNumber: "90909XXXXX",
     row: 2,
     column: 3,
     shelf: 4,
     image: 'images/snickers.png',
-    color: Colors.brown[300],
+    color: Color(0xFFEFD5B9),
     cartCheck: false,
   ),
   product(
@@ -249,7 +267,9 @@ List<product> prodDescription = [
     fssaiNo: "12216017000XXX",
     proteins: 9.0,
     vitamins: 8.0,
+    offer: "Get 20% extra",
     ownerInfo: "Mr.X",
+    brand: "images/kelloggs(pringles).png",
     phoneNumber: "90909XXXXX",
     row: 2,
     column: 3,
@@ -269,18 +289,20 @@ List<product> prodDescription = [
     barcode: '013000626095',
     requiredQuantity: 1,
     unit: 'g',
-    rating: 4.5,
-    reviewers: 179,
+    rating: 4.2,
+    reviewers: 91,
     fssaiNo: "12216017000XXX",
     proteins: 12.0,
     vitamins: 8.0,
     ownerInfo: "Mr.X",
+    brand: "images/KraftHeinz(Heinz).png",
+    offer: "Buy 3 get 1",
     phoneNumber: "90909XXXXX",
     row: 2,
     column: 3,
     shelf: 1,
     image: 'images/Ketchup.png',
-    color: Colors.brown[300],
+    color: Color(0xFFEFD5B9),
     cartCheck: false,
   ),
 ];

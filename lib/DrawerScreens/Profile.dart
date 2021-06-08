@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class Profile extends StatelessWidget {
+  static const id = "Profile";
 
   final auth = FirebaseAuth.instance;
 

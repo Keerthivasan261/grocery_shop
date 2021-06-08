@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class MyBaggage extends StatefulWidget {
+  static const id = "MyBaggage";
   @override
   _MyBaggageState createState() => _MyBaggageState();
 }

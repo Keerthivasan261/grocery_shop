@@ -3,11 +3,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:grocery_shop/DrawerScreens/GroupShopping.dart';
+import 'package:grocery_shop/CartScreen.dart';
+import 'package:grocery_shop/DrawerScreens/GroceryList.dart';
 import 'package:grocery_shop/MainScreen.dart';
 import 'package:grocery_shop/ProductDescription.dart';
+import 'package:grocery_shop/Validate.dart';
+import 'package:grocery_shop/WelcomeScreen.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:grocery_shop/Constants.dart';
+import 'package:provider/provider.dart';
 import 'DrawerScreens/Profile.dart';
 import 'DrawerScreens/ShoppingHistory.dart';
 import 'DrawerScreens/ShoppingLive.dart';
@@ -21,6 +25,7 @@ void cartNum() {
 }
 
 class ProductScreen extends StatefulWidget {
+  static const id = "ProductScreen";
   final Store productitem;
 
   ProductScreen({this.productitem});
@@ -46,344 +51,364 @@ class _ProductScreenState extends State<ProductScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      drawer: Drawer(
-        elevation: 70,
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(top: 50, left: 20, bottom: 20),
-                    child: Row(
-                      children: [
-                        Container(
-                          height: 50,
-                          width: 50,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage('images/trolley.png'),
+    return Consumer<Validate>(
+      builder: (context,validate,child)=> Scaffold(
+        backgroundColor: Colors.white,
+        drawer: Drawer(
+          elevation: 70,
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(top: 50, left: 20, bottom: 20),
+                      child: Row(
+                        children: [
+                          Container(
+                            height: 50,
+                            width: 50,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage('images/trolley.png'),
+                              ),
                             ),
                           ),
-                        ),
-                        SizedBox(width: 30),
-                        Text(
-                          'Trolley',
-                          style: GoogleFonts.pacifico(
-                              fontSize: 28,
-                              color: Colors.grey[800],
-                              letterSpacing: 1.5),
-                        )
-                      ],
-                    ),
-                  ),
-                  drawerText(
-                    text: 'Profile',
-                    onpressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Profile(),
-                        ),
-                      );
-                    },
-                  ),
-                  drawerText(
-                    text: 'Nearby Store',
-                    onpressed: () {
-                      Navigator.pushReplacementNamed(
-                        context,
-                        'main',
-                      );
-                    },
-                  ),
-                  drawerText(
-                    text: 'Shopping History',
-                    onpressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ShoppingHistory(),
-                        ),
-                      );
-                    },
-                  ),
-                  drawerText(
-                    text: 'Shopping Live',
-                    onpressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ShoppingLive(),
-                        ),
-                      );
-                    },
-                  ),
-                  drawerText(
-                    text: 'Group Shopping',
-                    onpressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => GroupShopping(),
-                        ),
-                      );
-                    },
-                  ),
-                  drawerText(
-                    text: 'Sign Out',
-                    onpressed: () async {
-                      _auth.signOut();
-                      if (_auth.currentUser == null) {
-                        Navigator.pushReplacementNamed(context, 'welcome');
-                      }
-                    },
-                  ),
-                ],
-              ),
-              ExpansionTile(
-                title: Text(
-                  'Contact us',
-                  style: TextStyle(fontSize: 20, color: Colors.black),
-                ),
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 5, bottom: 5),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10),
-                          child: IconButton(
-                              icon: Icon(
-                                MdiIcons.facebook,
-                                size: 35,
-                                color: Colors.blue[800],
-                              ),
-                              onPressed: () {}),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10),
-                          child: IconButton(
-                              icon: Icon(
-                                MdiIcons.twitter,
-                                size: 35,
-                                color: Colors.blue[400],
-                              ),
-                              onPressed: () {}),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10),
-                          child: IconButton(
-                              icon: Icon(
-                                MdiIcons.instagram,
-                                size: 35,
-                                color: Colors.red,
-                              ),
-                              onPressed: () {}),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10),
-                          child: IconButton(
-                              icon: Icon(
-                                MdiIcons.gmail,
-                                size: 35,
-                                color: Colors.red[700],
-                              ),
-                              onPressed: () {}),
-                        ),
-                      ],
-                    ),
-                  ),
-                  ListTile(
-                    leading: Icon(
-                      MdiIcons.phone,
-                      size: 30,
-                    ),
-                    title: Text(
-                      '+91 99XXX 99XXX ',
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-                    ),
-                  )
-                ],
-              )
-            ]),
-      ),
-      appBar: AppBar(
-        title: onSearch
-            ? Container(
-                height: 50,
-                width: 250,
-                child: AutoCompleteTextField<product>(
-                  decoration: InputDecoration(
-                    hintText: 'Search for products',
-                    hintStyle: kTextStyle.copyWith(
-                        color: Colors.grey[600],
-                        fontSize: 16,
-                        decorationStyle: TextDecorationStyle.dotted),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(width: 1),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(width: 1),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(width: 3, color: Colors.green[400]),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  key: _key,
-                  suggestions: prodDescription,
-                  itemBuilder: (context, index) => ListTile(
-                    title: Text(index.title),
-                    trailing: (index.quantity != null)
-                        ? Text('Quantity: (${index.quantity} ${index.unit})')
-                        : Text('Size: ${index.unit}'),
-                  ),
-                  itemSubmitted: (index) => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ProductDescription(
-                        products: index,
-                        storeTitle: StoreTitle,
-                        storeAddress: StoreAddress,
+                          SizedBox(width: 30),
+                          Text(
+                            'U-KART',
+                            style: GoogleFonts.pacifico(
+                                fontSize: 25,
+                                color: Colors.green[600],
+                                letterSpacing: 1.5),
+                          )
+                        ],
                       ),
                     ),
-                  ),
-                  itemSorter: (a, b) => a.price == b.price
-                      ? 0
-                      : a.price > b.price
-                          ? -1
-                          : 1,
-                  itemFilter: (sugg, input) =>
-                      sugg.title.toLowerCase().startsWith(input.toLowerCase()),
-                ),
-              )
-            : Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.productitem.title,
-                    style:
-                        kTextStyle.copyWith(fontSize: 20, color: Colors.black),
-                  ),
-                  Text(
-                    widget.productitem.address,
-                    style: kTextStyle.copyWith(
-                        fontSize: 15, color: Colors.grey[500]),
-                  )
-                ],
-              ),
-        backgroundColor: Colors.white,
-        elevation: 8,
-        actions: [
-          IconButton(
-            icon: onSearch
-                ? Icon(MdiIcons.close,color: Colors.green,)
-                : Icon(
-                    MdiIcons.magnify,
-              color: Colors.green,
-                  ),
-            onPressed: () {
-              setState(() {
-                onSearch = !onSearch;
-              });
-            },
-          ),
-          SizedBox(
-            width: 10,
-          ),
-          // TODO:CartButton IconButton(
-          //   icon: Icon(
-          //     MdiIcons.cart,
-          //     size: 30,
-          //   ),
-          //   onPressed: () {
-          //     Navigator.push(
-          //       context,
-          //       MaterialPageRoute(
-          //         builder: (context) => CartScreen(),
-          //       ),
-          //     );
-          //   },
-          // ),
-        ],
-        iconTheme: IconThemeData(color: Colors.black),
-      ),
-      body: SafeArea(
-        top: false,
-        bottom: false,
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: Text(
-                '[Scan products using Barcode]',
-                style: GoogleFonts.robotoMono(fontSize: 17),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 5, bottom: 20, right: 10),
-              child: Center(
-                child: IconButton(
-                  icon: Icon(
-                    MdiIcons.barcodeScan,
-                    color: Colors.grey[800],
-                    size: 50,
-                  ),
-                  onPressed: () async {
-                    try {
-                      barcode = await FlutterBarcodeScanner.scanBarcode(
-                          '#ffff1100', 'Cancel', true, ScanMode.BARCODE);
-                      setState(() {
-                        if (barcode != '-1') {
-                          var code = barcode.toString();
-                          for (int i = 0; i < prodDescription.length; i++) {
-                            if (code == prodDescription[i].barcode) {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ProductDescription(
-                                    products: prodDescription[i],
-                                    storeTitle: StoreTitle,
-                                    storeAddress: StoreAddress,
-                                  ),
-                                ),
-                              );
-                            }
-                          }
-                        } else {
-                          barcode = '';
+                    drawerText(
+                      text: 'Profile',
+                      onpressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Profile(),
+                          ),
+                        );
+                      },
+                    ),
+                    drawerText(
+                      text: 'Nearby Store',
+                      onpressed: () {
+                        Navigator.pushReplacementNamed(
+                          context,
+                          'main',
+                        );
+                      },
+                    ),
+                    drawerText(
+                      text: 'Grocery List',
+                      onpressed: () {
+                        Navigator.push(
+                          context,
+                            MaterialPageRoute(builder: (context)=>GroceryList()),
+                        );
+                      },
+                    ),
+                    drawerText(
+                      text: 'Shopping History',
+                      onpressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ShoppingHistory(),
+                          ),
+                        );
+                      },
+                    ),
+                    drawerText(
+                      text: 'Shopping Live',
+                      onpressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ShoppingLive(),
+                          ),
+                        );
+                      },
+                    ),
+                    drawerText(
+                      text: 'Sign Out',
+                      onpressed: () async {
+                        await _auth.signOut();
+                        if (_auth.currentUser == null) {
+                          Navigator.pushReplacementNamed(context, WelcomeScreen.id);
                         }
-                      });
-                    } catch (e) {
-                      print(e);
-                    }
-                  },
+                      },
+                    ),
+                  ],
                 ),
-              ),
-            ),
-            Expanded(
-              child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 0.85,
-                    crossAxisSpacing: 1,
-                    mainAxisSpacing: 1),
-                itemCount: prodDescription.length,
-                itemBuilder: (context, index) => Card(
-                  indexvalue: index,
-                  products: prodDescription[index],
+                ExpansionTile(
+                  title: Text(
+                    'Contact us',
+                    style: TextStyle(fontSize: 20, color: Colors.black),
+                  ),
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 5, bottom: 5),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: IconButton(
+                                icon: Icon(
+                                  MdiIcons.facebook,
+                                  size: 35,
+                                  color: Colors.blue[800],
+                                ),
+                                onPressed: () {}),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: IconButton(
+                                icon: Icon(
+                                  MdiIcons.twitter,
+                                  size: 35,
+                                  color: Colors.blue[400],
+                                ),
+                                onPressed: () {}),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: IconButton(
+                                icon: Icon(
+                                  MdiIcons.instagram,
+                                  size: 35,
+                                  color: Colors.red,
+                                ),
+                                onPressed: () {}),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: IconButton(
+                                icon: Icon(
+                                  MdiIcons.gmail,
+                                  size: 35,
+                                  color: Colors.red[700],
+                                ),
+                                onPressed: () {}),
+                          ),
+                        ],
+                      ),
+                    ),
+                    ListTile(
+                      leading: Icon(
+                        MdiIcons.phone,
+                        size: 30,
+                      ),
+                      title: Text(
+                        '+91 99XXX 99XXX ',
+                        style:
+                            TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+                      ),
+                    )
+                  ],
+                )
+              ]),
+        ),
+        appBar: AppBar(
+          title: onSearch
+              ? Container(
+                  height: 50,
+                  width: 250,
+                  child: AutoCompleteTextField<product>(
+                    decoration: InputDecoration(
+                      hintText: 'Search for products',
+                      hintStyle: kTextStyle.copyWith(
+                          color: Colors.grey[600],
+                          fontSize: 16,
+                          decorationStyle: TextDecorationStyle.dotted),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(width: 1),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(width: 1),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(width: 3, color: Colors.green[400]),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    key: _key,
+                    suggestions: prodDescription,
+                    itemBuilder: (context, index) => ListTile(
+                      title: Text(index.title),
+                      trailing: (index.quantity != null)
+                          ? Text('Quantity: (${index.quantity} ${index.unit})')
+                          : Text('Size: ${index.unit}'),
+                    ),
+                    itemSubmitted: (index) => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProductDescription(
+                          products: index,
+                          storeTitle: StoreTitle,
+                          storeAddress: StoreAddress,
+                        ),
+                      ),
+                    ),
+                    itemSorter: (a, b) => a.price == b.price
+                        ? 0
+                        : a.price > b.price
+                            ? -1
+                            : 1,
+                    itemFilter: (sugg, input) =>
+                        sugg.title.toLowerCase().startsWith(input.toLowerCase()),
+                  ),
+                )
+              : Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.productitem.title,
+                      style:
+                          kTextStyle.copyWith(fontSize: 20, color: Colors.black),
+                    ),
+                    Text(
+                      widget.productitem.address,
+                      style: kTextStyle.copyWith(
+                          fontSize: 15, color: Colors.grey[500]),
+                    )
+                  ],
                 ),
-              ),
+          backgroundColor: Colors.white,
+          elevation: 8,
+          actions: [
+            IconButton(
+              icon: onSearch
+                  ? Icon(MdiIcons.close,color: Colors.green,)
+                  : Icon(
+                      MdiIcons.magnify,
+                color: Colors.green,
+                    ),
+              onPressed: () {
+                setState(() {
+                  onSearch = !onSearch;
+                });
+              },
             ),
+            validate.isLocal?SizedBox(width: 0) : IconButton(
+              icon: Icon(
+                MdiIcons.cart,
+                size: 30,
+                color: Colors.green,
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CartScreen(
+                      items: prodDescription[1],
+                    ),
+                  ),
+                );
+              },
+            )
           ],
+          iconTheme: IconThemeData(color: Colors.black),
+        ),
+        body: SafeArea(
+          top: false,
+          bottom: false,
+          child: Column(
+            children: [
+              validate.isLocal?Padding(
+                padding: const EdgeInsets.all(0.8),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [BoxShadow(
+                      spreadRadius: 0.5,
+                      blurRadius: 10,
+                      offset: Offset(2,4),
+                      color: Colors.grey,
+                    ),],
+                    borderRadius: BorderRadius.circular(5),
+                    border: Border.all(width: 1.5,color: Colors.green)
+                  ),
+                  child: Column(
+                    children:[
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20),
+                        child: Text(
+                          '[Scan products using Barcode]',
+                          style: GoogleFonts.robotoMono(fontSize: 17),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 5, bottom: 20, right: 10),
+                        child: Center(
+                          child: IconButton(
+                            icon: Icon(
+                              MdiIcons.barcodeScan,
+                              color: Colors.grey[800],
+                              size: 50,
+                            ),
+                            onPressed: () async {
+                              try {
+                                barcode = await FlutterBarcodeScanner.scanBarcode(
+                                    '#ffff1100', 'Cancel', true, ScanMode.BARCODE);
+                                setState(() {
+                                  if (barcode != '-1') {
+                                    var code = barcode.toString();
+                                    for (int i = 0; i < prodDescription.length; i++) {
+                                      if (code == prodDescription[i].barcode) {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => ProductDescription(
+                                              products: prodDescription[i],
+                                              storeTitle: StoreTitle,
+                                              storeAddress: StoreAddress,
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                    }
+                                  } else {
+                                    barcode = '';
+                                  }
+                                });
+                              } catch (e) {
+                                print(e);
+                              }
+                            },
+                          ),
+                        ),
+                      ),
+                    ]
+                  ),
+                ),
+              ):SizedBox(height: 30,),
+              Expanded(
+                child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 0.85,
+                      crossAxisSpacing: 1,
+                      mainAxisSpacing: 1),
+                  itemCount: prodDescription.length,
+                  itemBuilder: (context, index) => Card(
+                    indexvalue: index,
+                    products: prodDescription[index],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -392,8 +417,7 @@ class _ProductScreenState extends State<ProductScreen> {
 
 class Card extends StatelessWidget {
   final product products;
-  int indexvalue;
-  String empty = '';
+  final int indexvalue;
 
   Card({this.products, this.indexvalue});
 

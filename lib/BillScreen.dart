@@ -4,6 +4,7 @@ import 'package:grocery_shop/Constants.dart';
 import 'package:grocery_shop/MainScreen.dart';
 
 class BillScreen extends StatelessWidget {
+  static const id = "BillScreen";
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:grocery_shop/ProductScreen.dart';
 
+// ignore: must_be_immutable
 class NearbyStore extends StatelessWidget {
+  static const id = "NearbyStore";
   List stores;
 
   NearbyStore({this.stores});

@@ -5,6 +5,7 @@ import 'package:grocery_shop/Constants.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class EndScreen extends StatefulWidget {
+  static const id = "EndScreen";
   @override
   _EndScreenState createState() => _EndScreenState();
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:grocery_shop/DrawerScreens/Histories.dart';
 
 class ShoppingHistory extends StatelessWidget {
+  static const id = "ShoppingHistory";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,75 +44,87 @@ class ShoppingHistory extends StatelessWidget {
                     style: TextStyle(fontSize: 16, color: Colors.green[800]),
                   ),
                 ),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'ABC Super Market',
-                            style: TextStyle(fontSize: 19),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              'Bangalore',
-                              style: TextStyle(
-                                  color: Colors.grey[700], fontSize: 16),
-                            ),
-                          ),
-                          RichText(
-                            text: TextSpan(
-                                style: TextStyle(
-                                    fontSize: 15, color: Colors.black),
-                                text: 'No. of products purchased:',
-                                children: [
-                                  TextSpan(
-                                      text: ' 4',
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w500,color: Colors.green[700],),)
-                                ]),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          RichText(
-                            text: TextSpan(
-                                style: TextStyle(
-                                    fontSize: 15, color: Colors.black),
-                                text: 'Date:',
-                                children: [
-                                  TextSpan(
-                                      text: ' dd/mm/yyyy',
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w500))
-                                ]),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: RichText(
-                              text: TextSpan(
+                Container(
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white,
+                    boxShadow: [BoxShadow(spreadRadius: 0.3,blurRadius: 7,color: Colors.grey)]
+                  ),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'ABC Super Market',
+                                style: TextStyle(fontSize: 19),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  'Bangalore',
                                   style: TextStyle(
-                                      fontSize: 15, color: Colors.black),
-                                  text: 'Bill Amount:',
-                                  children: [
-                                    TextSpan(
-                                        text: ' ₹ xx',
-                                        style: TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.w500))
-                                  ]),
-                            ),
+                                      color: Colors.grey[700], fontSize: 16),
+                                ),
+                              ),
+                              RichText(
+                                text: TextSpan(
+                                    style: TextStyle(
+                                        fontSize: 15, color: Colors.black),
+                                    text: 'No. of products purchased:',
+                                    children: [
+                                      TextSpan(
+                                          text: ' 4',
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w500,color: Colors.green[700],),)
+                                    ]),
+                              ),
+                            ],
                           ),
-                        ],
-                      )
-                    ]),
+                        ),
+                        Container(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              RichText(
+                                text: TextSpan(
+                                    style: TextStyle(
+                                        fontSize: 15, color: Colors.black),
+                                    text: 'Date:',
+                                    children: [
+                                      TextSpan(
+                                          text: ' dd/mm/yyyy',
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w500))
+                                    ]),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: RichText(
+                                  text: TextSpan(
+                                      style: TextStyle(
+                                          fontSize: 15, color: Colors.black),
+                                      text: 'Bill Amount:',
+                                      children: [
+                                        TextSpan(
+                                            text: ' ₹ xx',
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.w500))
+                                      ]),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      ]),
+                ),
               ],
             ),
           )
